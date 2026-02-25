@@ -43,7 +43,7 @@ async function appendToSheet(rowData) {
   try {
     await sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
-      range: '시트1!A:Z', // 한글 시트 이름 사용
+      range: '댓수문자 발동!A:Z', // 실제 시트 탭 이름
       valueInputOption: 'USER_ENTERED',
       resource: {
         values: [rowData]
@@ -110,16 +110,16 @@ app.post('/api/estimate', upload.none(), async (req, res) => {
 
     // Google Sheets에 저장
     const sheetRow = [
-      timestamp,
-      fullPhone,
-      quan,
-      subject,
-      topic,
-      address,
-      rType,
-      rInt,
-      ktMark,
-      howPay
+      timestamp,           // A: 시간 (Korea time)
+      ktMark,              // B: 경로
+      '010',               // C: 번호
+      phoneB,              // D: 앞4
+      phoneC,              // E: 뒤4
+      rType,               // F: 타입
+      rInt,                // G: 인터넷
+      topic,               // H: 시
+      address,             // I: 동
+      subject              // J: 도
     ];
     
     if (SPREADSHEET_ID) {
