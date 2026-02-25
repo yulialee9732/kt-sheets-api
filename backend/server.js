@@ -131,7 +131,7 @@ app.post('/api/estimate', upload.none(), async (req, res) => {
     // 이메일 발송 - 2hh9732@gmail.com, yulialee217@gmail.com로 전송
     if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
       try {
-        const emailSubject = `[KT 신규] ${subject} ${topic} ${address} ${rType} 카메라 ${quan} 견적 인터넷: ${rInt}`;
+        const emailSubject = `[(new)KT 신규] ${subject} ${topic} ${address} ${rType} 카메라 ${quan} 견적 인터넷: ${rInt}`;
         
         const emailBody = `시간: ${timestamp}
 
