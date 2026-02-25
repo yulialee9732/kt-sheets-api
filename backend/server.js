@@ -112,9 +112,9 @@ app.post('/api/estimate', upload.none(), async (req, res) => {
     const sheetRow = [
       timestamp,           // A: . (시간)
       ktMark || 'KT',      // B: 경로 (기본값: KT)
-      '010',               // C: 번호
-      phoneB,              // D: 앞4
-      phoneC,              // E: 뒤4
+      "'010",              // C: 번호 (앞에 ' 붙여서 텍스트로 저장)
+      "'" + phoneB,        // D: 앞4 (텍스트로 저장)
+      "'" + phoneC,        // E: 뒤4 (텍스트로 저장)
       '',                  // F: TRUE (빈칸)
       quan,                // G: 댓수
       rType,               // H: 타입
