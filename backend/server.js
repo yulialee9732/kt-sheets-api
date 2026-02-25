@@ -111,11 +111,11 @@ app.post('/api/estimate', upload.none(), async (req, res) => {
     // Google Sheets에 저장
     const sheetRow = [
       timestamp,           // A: . (시간)
-      ktMark,              // B: 경로
+      ktMark || 'KT',      // B: 경로 (기본값: KT)
       '010',               // C: 번호
       phoneB,              // D: 앞4
       phoneC,              // E: 뒤4
-      'TRUE',              // F: TRUE
+      '',                  // F: TRUE (빈칸)
       quan,                // G: 댓수
       rType,               // H: 타입
       rInt,                // I: 인터넷
