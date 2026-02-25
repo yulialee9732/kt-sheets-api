@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KT Telecop</title>
+    <link rel="shortcut icon" href="img/kt.png">
+    <meta name="“description”" content="합리적인 가격의 CCTV 견적을 제공해 드립니다. 초기비용 0원, 36개월 할부 후 0원!">
+    <!-- <link rel="stylesheet" href="bootstrap-4.4.1-dist/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="ktForm.css">
+    <!-- Smartlog -->
+    <script type="text/javascript"> 
+      var hpt_info={'_account':'UHPT-15708'};
+    </script>
+    <script language="javascript" src="//a21.smlog.co.kr/smart.js" charset="utf-8"></script>
+    <noscript><img src="//a21.smlog.co.kr/smart_bda.php?_account=15708" style="display:none;width:0;height:0;" border="0"/></noscript>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"></script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-5CDNTMK');</script>
+      <!-- End Google Tag Manager -->
+    <!-- carousal slider script, link -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <script src="main.js"></script>
+    <script src="https://kit.fontawesome.com/050a854bc2.js" crossorigin="anonymous"></script>
+    <!-- Google Ads: 432389321 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-432389321"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-432389321');
+    </script>
+  </head>
+    <!-- 네이버 로그분석 / 전환페이지 설정값보다 항상 하단에 위치해야함 --> 
+    <script type="text/javascript" src="//wcs.naver.net/wcslog.js"> </script> 
+    <script type="text/javascript"> 
+        if (!wcs_add) var wcs_add={};
+        wcs_add["wa"] = "s_3c90aadc3a6";
+        if (!_nasa) var _nasa={};
+        if(window.wcs){
+        wcs.inflow();
+        wcs_do(_nasa);
+        }
+    </script> 
+    <body data-spy="scroll" data-target="#navbarResponsive">
+      <!-- Google Tag Manager (noscript) -->
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5CDNTMK"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+
+      <div id="header"></div>
+      <div id="sidefixed"></div>
+
+        <!-- 모바일 fixed 아이콘 -->
+        <div class="mobile-fixed-contact">
+          <a href="tel:1522-0392">
+            <div class="menu-call-block">
+              <h4>1522-0392</h4>
+            </div>
+          </a>
+          <a href="estimate-request.html">
+            <div class="menu-request-block">
+              <h3>간편상담예약</h3>
+            </div>
+          </a>
+        </div>
+        
+        <!-- 상담 신청 -->
+        <div class="products-container padding-top150">
+            <div class="products-title">
+                <div class="product-underline"></div>
+                <h2>KT Telecop</h2>
+                <h3>간편 상담 예약</h3>
+                <!-- <h4>접수 센터에서 상담후 고객님과 가장 가까운 설치센터에서 신속하게 설치해 드립니다. 빠른 상담을 원하시면 1522-0392로 연락주시기 바랍니다.</h4> -->
+            </div>
+    
+            <div class="estimate-container">
+              <div class="estimate-banner margin-top30">
+                <div class="estimate-banner-block">
+                  <img src="img/estimate-icon.png">
+                </div>
+                <div class="estimate-banner-block-text">
+                  <h2>상담후 고객님과 <span>가장 가까운 센터</span>에서<br>신속하게 진행해 드립니다.<br>빠른 상담을 원하시면 <span>1522-0392</span>로<br>연락주시기 바랍니다.</h2>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="easy-container" id="block">
+          <form name="easyForm" id="easyForm" onsubmit="validateForm()" 
+            method="post"
+            enctype="multipart/form-data">
+            <ul>
+              <!-- 번호 1-->
+              <li>
+                <div class="title">받으실 번호</div>
+                <div class="phoneNum">
+                  <input type="text" class="test" id="번호a" name="번호a" value="010" maxlength="3"/>
+                  <p>-</p>
+                  <input type="text" class="test" id="b" name="b" maxlength="4" minlength="4"onkeypress='validate(event)'/>
+                  <p>-</p>
+                  <input type="text" class="test" id="c" name="c" maxlength="4" minlength="4"onkeypress='validate(event)'/>  
+                </div>
+                
+              <!-- 카메라 댓수 2-->
+              <li>
+                <div class="title">CCTV 카메라 댓수</div>
+                <div id="quanDiv">
+                  <div>
+                    <input type="radio" id="1" name="quan" value="1대">
+                    <label id="hoverFunc5" for="1">1대</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="2" name="quan" value="2대">
+                    <label id="hoverFunc6" for="2">2대</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="3" name="quan" value="3대">
+                    <label id="hoverFunc7" for="3">3대</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="4" name="quan" value="4대">
+                    <label id="hoverFunc8" for="4">4대</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="5" name="quan" value="5대">
+                    <label id="hoverFunc9" for="5">5대</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="6" name="quan" value="6대">
+                    <label id="hoverFunc10" for="6">6대</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="7" name="quan" value="7대">
+                    <label id="hoverFunc15" for="7">7대</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="8" name="quan" value="8대">
+                    <label id="hoverFunc16" for="8">8대</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="9" name="quan" value="9대">
+                    <label id="hoverFunc17" for="9">9대</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="10" name="quan" value="10대">
+                    <label id="hoverFunc18" for="10">10대</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="11" name="quan" value="11대">
+                    <label id="hoverFunc19" for="11">11대</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="12" name="quan" value="12대">
+                    <label id="hoverFunc20" for="12">12대</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="13" name="quan" value="13대">
+                    <label id="hoverFunc21" for="13">13대</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="14" name="quan" value="14대">
+                    <label id="hoverFunc22" for="14">14대</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="15" name="quan" value="15대">
+                    <label id="hoverFunc23" for="15">15대</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="16" name="quan" value="16대이상">
+                    <label id="hoverFunc24" for="16">16대+</label><br>
+                  </div>
+                </div>
+              </li>
+      
+              <!-- CCTV 필요한 곳 3-->
+              <li>
+                <div class="title">CCTV 필요한 곳</div>
+                <select name="subject" id="subject" >
+                  <option id="doID" value="" selected="selected">도/시 (필수)</option>
+                </select>
+                <br><br>
+                <select name="topic" id="topic">
+                  <option id="siID" value="" selected="selected">시/군/구 (필수)</option>
+                </select>
+                <br><br>
+                <div>
+                  <input type="text" id="address" name="address" placeholder="읍/면/동 (선택사항)">
+                </div>
+              </li>
+              
+              <!-- 현장의 종류 4-->
+              <li>
+                <div class="title">현장의 종류</div>
+                <div id="typeDiv">
+                  <div>
+                    <input type="radio" id="store" name="rType" value="매장">
+                    <label id="hoverFunc11" for="store">매장</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="house" name="rType" value="주택">
+                    <label id="hoverFunc12" for="house">주택</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="factory" name="rType" value="공장">
+                    <label id="hoverFunc13" for="factory">공장</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="academy" name="rType" value="학원">
+                    <label id="hoverFunc25" for="academy">학원</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="office" name="rType" value="사무실">
+                    <label id="hoverFunc26" for="office">사무실</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="church" name="rType" value="교회">
+                    <label id="hoverFunc27" for="church">교회</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="apt" name="rType" value="아파트">
+                    <label id="hoverFunc28" for="apt">아파트</label><br>
+                  </div>
+                  <div>
+                    <input type="radio" id="else" name="rType" value="기타">
+                    <label id="hoverFunc14" for="else">기타</label><br>
+                  </div>
+                </div>
+              </li>
+
+              <!-- 인터넷 5-->
+              <li>
+                <div class="title">설치 장소에 인터넷이 있나요?</div>
+                <div id="internetDiv">
+                  <div>
+                    <div>
+                      <input type="radio" id="intYes" name="rInt" value="있음">
+                      <label id="hoverFunc1" for="intYes">인터넷 있음</label><br>
+                    </div>
+                    <div>
+                      <input type="radio" id="intNo" name="rInt" value="없음">
+                      <label id="hoverFunc2" for="intNo">인터넷 없음</label><br>
+                    </div>  
+                  </div>
+                  <div>
+                    <div>
+                      <input type="radio" id="intWill" name="rInt" value="CCTV와 함께 설치 희망">
+                      <label id="hoverFunc3" for="intWill">CCTV와 함께 설치 희망</label><br>
+                    </div>
+                    <div>
+                      <input type="radio" id="intWillNot" name="rInt" value="인터넷없이 모니터로만 볼 예정">
+                      <label id="hoverFunc4" for="intWillNot">인터넷 없이 모니터로만 볼 예정</label><br>
+                    </div>  
+                  </div>
+                  
+                </div>
+              </li>
+              <!-- 개인정보 & submit 6 -->
+              <li>
+                <label class="checkCont" for="agree">개인정보 이용 동의
+                  <input type="checkbox" id="agree">
+                  <span class="checkmark"></span>
+                </label><br>
+                <p onclick="javascript:agreeClick();" id="agreeDetail">자세히 보기</p>
+                <div id="agreeExpand" >
+                  <p>개인정보 수집항목<br>
+                  - 필수 : 전화번호, 주소<br>
+                  수집 및 이용목적 : KT CCTV 문의 사항 접수 및 답변 제공을 위한 최소한의 개인정보를 수집하고 있습니다.<br>
+                  보유 및 이용기간 : 3개월 후 파기<br>
+                  동의 거부 시 불이익<br>
+                  - 필수 : 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있으나, 동의하지 않을 경우 솔트 CCTV 안내/상담 서비스 제공이 불가할 수 있습니다.<br>
+                  - 선택 : 개인정보 수집 및 이용에 대한 동의를 거부할 권리가 있으며, 거부 시 불이익은 없습니다.<br>
+                  </p>
+                </div>
+                <div id="submit-btn">
+                  <input type="submit" id="easyFormSubmit" name="submit" value="Submit">
+                  <label id="easySubmit" for="easyFormSubmit">보내기</label> 
+                </div>
+              </li>  
+              <div id="error-message" style="color: red; text-align: center; padding: 0 0 60px 0;"></div>
+              <input type="text" id="ktMark" name="ktMark" value="KT">
+            </ul>
+<!--               
+            <ul>
+              <li><img src="img/easyPoster.png"></li>
+            </ul> -->
+            
+          </form>
+        </div>
+
+        <!-- 설치 순서 -->
+        <div class="service-order-all margin-top150">
+          <div class="products-container">
+            <div class="service-order">
+              <div class="products-title">
+                <div class="product-underline"></div>
+                <h3>신속한 설치 서비스</h3>
+                <h4>설치신청 접수 후 고객님과 가장 가까운 설치센터에서 신속하게 설치해 드립니다.</h4>
+              </div>
+              <img class="order-PC"src="img/cctv-order.png">
+              <img class="order-MB"src="img/cctv-order-mb.png">
+            </div>
+          </div>
+        </div>
+
+        <div class="products-container">
+          <div class="products-title padding-top80">
+            <div class="product-underline"></div>
+            <h3>빠르게 둘러보기</h3>
+          </div>
+          <div class="quick-links-container margin-top30">
+            <div class="quick-links-pc">
+              <a href="cctv.html">
+                <div class="quick-link1">
+                  <h2>CCTV 라인업 바로가기</h2>
+                </div>
+              </a>
+              <a href="210vs500.html" >
+                <div class="quick-link2">
+                  <p>.</p>
+                  <h2>500만화소 화질비교</h2>
+                </div>
+              </a>
+              
+            </div>
+            <div class="quick-links-pc2">
+              <a href="iot.html">
+                <div class="quick-link3">
+                  <h2>IoT 자가방범 바로가기</h2>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div class="quick-links-faq">
+            <a href="faq.html" >
+              <div class="quick-link6">
+                <p></p>
+                <h2>자주 물어보시는 질문</h2>
+              </div>
+            </a>
+          </div>
+          <div class="quick-links-last-block">
+            <a href="review.html" >
+              <div class="quick-link5">
+                <p></p>
+                <h2>시공후기</h2>
+              </div>
+            </a>
+            <a href="insurance.html">
+              <div class="quick-link4">
+                <h2>안심보험 안내</h2>
+              </div>
+            </a>
+          </div>
+        </div>
+        
+
+
+        <div id="footer"></div>
+          
+    </body>
+
+    <script>
+      var checkedColor ="#b12401";
+      var uncheckedColor = "#f6f6f6";
+      var blackColor = "rgb(0, 0, 0)";
+      var hoverColor= "#dad8d8";
+      var hoverSubmit = "#921f02";
+      var easySubmit = "#b12401";
+      var borderColorAlert = "#b12401";
+      var whiteColor="#fff";
+
+      $(document).on("keyup", "input[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );})
+      // Render 백엔드 URL (배포 후 실제 URL로 변경하세요)
+      const scriptURL = 'https://YOUR-APP-NAME.onrender.com/api/estimate'
+      const form = document.querySelector("#easyForm");
+      var howPay = document.getElementsByName('howPay');
+      document.getElementById("easyForm").onsubmit = function(event) {
+      event.preventDefault();
+  
+      const aA = document.getElementById("b").value;
+      const aB = document.getElementById("c").value;
+      const dA = document.getElementById("1");
+      const dB = document.getElementById("2");
+      const dC = document.getElementById("3");
+      const dD = document.getElementById("4");
+      const dE = document.getElementById("5");
+      const dF = document.getElementById("6");
+      const dG = document.getElementById("7");
+      const dH = document.getElementById("8");
+      const dI = document.getElementById("9");
+      const dJ = document.getElementById("10");
+      const dK = document.getElementById("11");
+      const dL = document.getElementById("12");
+      const dM = document.getElementById("13");
+      const dN = document.getElementById("14");
+      const dO = document.getElementById("15");
+      const dP = document.getElementById("16");
+      const iA = document.getElementById("subject")
+      const iB = document.getElementById("topic")
+      const fA = document.getElementById("store");
+      const fB = document.getElementById("house");
+      const fC = document.getElementById("factory");
+      const fD = document.getElementById("else");
+      const fE = document.getElementById("academy");
+      const fF = document.getElementById("office");
+      const fG = document.getElementById("church");
+      const fH = document.getElementById("apt");
+      const gA = document.getElementById("intYes");
+      const gB = document.getElementById("intNo");
+      const gC = document.getElementById("intWill");
+      const gD = document.getElementById("intWillNot");
+      const hA= document.getElementById("agree");
+      const errorMessage = document.getElementById("error-message");
+  
+      let isValid = true;
+  
+      // Check if any required field is empty
+      if (aA.trim() === "" || aB.trim() === "" || //번호
+      (!dA.checked && !dB.checked && !dC.checked && !dD.checked && //수량
+      !dE.checked && !dF.checked && !dG.checked && !dH.checked && !dI.checked && !dJ.checked && //수량
+      !dK.checked && !dL.checked && !dM.checked && !dN.checked && !dO.checked && !dP.checked) || //수량
+      (iA.value.trim() === "" || iB.value.trim() === "") || //지역
+      (!fA.checked && !fB.checked && !fC.checked && !fD.checked && !fE.checked && !fF.checked && !fG.checked && !fH.checked)|| //장소 타입
+      (!gA.checked && !gB.checked && !gC.checked && !gD.checked)|| //인터넷
+      (!hA.checked)){ //개인정보
+        errorMessage.textContent = "모든 항목을 체크해 주세요";
+        isValid = false;
+      } 
+      phoneNum = document.querySelector(".phoneNum");
+      
+      if(aA.trim() === "" || aB.trim() === "" || aA.trim().length !== 4 || aB.trim().length !== 4 ){
+        errorMessage.textContent = "전화번호를 입력해주세요";
+        phoneNum.parentNode.style.borderColor = borderColorAlert;
+        const targetScrollPosition = phoneNum.parentNode.getBoundingClientRect().top + window.scrollY - 300;
+        // Scroll to 300 pixels above the target element
+        window.scrollTo({
+          top: targetScrollPosition,
+          behavior: 'smooth'
+        });
+        isValid = false;
+      }     
+      
+      quanDiv = document.querySelector(".easy-container form  ul li:nth-child(2)")
+      if(!dA.checked && !dB.checked && !dC.checked && !dD.checked && //수량
+      !dE.checked && !dF.checked && !dG.checked && !dH.checked && !dI.checked && !dJ.checked && //수량
+      !dK.checked && !dL.checked && !dM.checked && !dN.checked && !dO.checked && !dP.checked){
+        errorMessage.textContent = "수량을 체크해 주세요";
+        quanDiv.style.borderColor = borderColorAlert;
+        const targetScrollPosition = quanDiv.getBoundingClientRect().top + window.scrollY - 300;
+        // Scroll to 300 pixels above the target element
+        window.scrollTo({
+          top: targetScrollPosition,
+          behavior: 'smooth'
+        });
+        isValid = false;
+      }     
+  
+      locationDiv = document.querySelector(".easy-container form  ul li:nth-child(3)")
+      if (iA.value.trim() === "" || iB.value.trim() === ""){
+        errorMessage.textContent = "설치지역을 입력해 주세요";
+        locationDiv.style.borderColor = borderColorAlert;
+        const targetScrollPosition = locationDiv.getBoundingClientRect().top + window.scrollY - 300;
+        // Scroll to 300 pixels above the target element
+        window.scrollTo({
+          top: targetScrollPosition,
+          behavior: 'smooth'
+        });
+        isValid = false;
+      }
+  
+      typeDiv = document.querySelector(".easy-container form  ul li:nth-child(4)")
+      if ((!fA.checked && !fB.checked && !fC.checked && !fD.checked && !fE.checked && !fF.checked && !fG.checked && !fH.checked)){
+        errorMessage.textContent = "설치 하실 곳을 입력해 주세요";
+        typeDiv.style.borderColor = borderColorAlert;
+        const targetScrollPosition = typeDiv.getBoundingClientRect().top + window.scrollY - 300;
+        // Scroll to 300 pixels above the target element
+        window.scrollTo({
+          top: targetScrollPosition,
+          behavior: 'smooth'
+        });
+        isValid = false;
+      }
+  
+      internetDiv = document.querySelector(".easy-container form  ul li:nth-child(5)")
+      if (!gA.checked && !gB.checked && !gC.checked && !gD.checked){
+        errorMessage.textContent = "인터넷 유무를 입력해 주세요";
+        internetDiv.style.borderColor = borderColorAlert;
+        const targetScrollPosition = internetDiv.getBoundingClientRect().top + window.scrollY - 300;
+        // Scroll to 300 pixels above the target element
+        window.scrollTo({
+          top: targetScrollPosition,
+          behavior: 'smooth'
+        });
+        isValid = false;
+      }
+      privacyDiv = document.querySelector(".easy-container form  ul li:nth-child(6) #agree")
+      if (!hA.checked){
+        errorMessage.textContent = "개인정보 이용에 동의해 주세요";
+        privacyDiv.style.borderColor = borderColorAlert;
+        const targetScrollPosition = privacyDiv.getBoundingClientRect().top + window.scrollY - 300;
+        // Scroll to 300 pixels above the target element
+        window.scrollTo({
+          top: targetScrollPosition,
+          behavior: 'smooth'
+        });
+        isValid = false;
+      }
+      if(aA.trim().length == 4 || aB.trim().length == 4 ){
+        phoneNum.parentNode.style.borderColor = whiteColor;
+      }     
+      
+      if(dA.checked || dB.checked || dC.checked || dD.checked || //수량
+        dE.checked || dF.checked || dG.checked || dH.checked || dI.checked || //수량
+        dJ.checked || dK.checked || dL.checked || dM.checked || dN.checked || //수량
+        dO.checked || dP.checked){
+        quanDiv.style.borderColor = whiteColor;
+      }     
+  
+      if (iA.value.trim() !== "" || iB.value.trim() !== ""){
+        locationDiv.style.borderColor = whiteColor;
+      }
+  
+      typeDiv = document.querySelector(".easy-container form  ul li:nth-child(4)")
+      if ((fA.checked || fB.checked || fC.checked || fD.checked || fE.checked || fF.checked || fG.checked || fH.checked)){
+        typeDiv.style.borderColor = whiteColor;
+      }
+  
+      internetDiv = document.querySelector(".easy-container form  ul li:nth-child(5)")
+      if (gA.checked || gB.checked || gC.checked || gD.checked){
+        internetDiv.style.borderColor = whiteColor;
+      }
+      privacyDiv = document.querySelector(".easy-container form  ul li:nth-child(6)")
+      if (hA.checked){
+        privacyDiv.style.borderColor = whiteColor;
+      }
+  
+      if (!isValid) {
+          return; // Prevent form submission if any validation fails
+      }
+  
+      
+  
+      else {
+      errorMessage.textContent = "";
+  
+      // let isValid = true;
+  
+      if (isValid) {
+        fetch(scriptURL, { method: "POST", body: new FormData(this) })
+          .then((response) => {
+            alert("상담 신청이 접수되었습니다.");
+            form.reset();
+            intYes.nextElementSibling.style.color = blackColor;
+            intYes.nextElementSibling.style.backgroundColor = uncheckedColor;
+            intNo.nextElementSibling.style.color = blackColor;
+            intNo.nextElementSibling.style.backgroundColor = uncheckedColor;
+            intWill.nextElementSibling.style.backgroundColor = uncheckedColor;
+            intWill.nextElementSibling.style.color = blackColor;
+            intWillNot.nextElementSibling.style.backgroundColor = uncheckedColor;
+            intWillNot.nextElementSibling.style.color = blackColor;
+            rStore.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rStore.nextElementSibling.style.color = blackColor;
+            rHouse.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rHouse.nextElementSibling.style.color = blackColor;
+            rFactory.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rFactory.nextElementSibling.style.color = blackColor;
+            rElse.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rElse.nextElementSibling.style.color = blackColor;
+            rAcademy.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rAcademy.nextElementSibling.style.color = blackColor;
+            rOffice.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rOffice.nextElementSibling.style.color = blackColor;
+            rChurch.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rChurch.nextElementSibling.style.color = blackColor;
+            rApt.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rApt.nextElementSibling.style.color = blackColor;
+            for (i=0;i < quanRadio.length; i++){
+              labels[i].style.backgroundColor = uncheckedColor;
+              labels[i].style.color = blackColor;
+            }
+            phoneNum.parentNode.style.borderColor = whiteColor;
+            quanDiv.style.borderColor = whiteColor;
+            locationDiv.style.borderColor = whiteColor;
+            typeDiv.style.borderColor = whiteColor;
+            internetDiv.style.borderColor = whiteColor;
+            privacyDiv.style.borderColor = whiteColor;
+          document.location = '#block';
+            console.log(response);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+        }
+      }
+    };
+  // 개인정보 이용 동의
+  var agreeExpand = document.querySelector("#agreeExpand")
+  function agreeClick(){
+    agreeExpand.classList.remove("hidden");
+    agreeExpand.style.maxHeight= "500px";
+    agreeExpand.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth',
+      inline: 'start'
+    });
+  }
+    </script>
+    <script> //easyForm
+      function validate(evt) {
+        var theEvent = evt || window.event;
+  
+        // Handle paste
+        if (theEvent.type === 'paste') {
+            key = event.clipboardData.getData('text/plain');
+        } else {
+        // Handle key press
+            var key = theEvent.keyCode || theEvent.which;
+            key = String.fromCharCode(key);
+        }
+        var regex = /[0-9]|\./;
+        if( !regex.test(key) ) {
+          theEvent.returnValue = false;
+          if(theEvent.preventDefault) theEvent.preventDefault();
+        }
+      }
+  
+      var elts = document.getElementsByClassName('test')
+      Array.from(elts).forEach(function(elt){
+        elt.addEventListener("keyup", function(event) {
+          // Number 13 is the "Enter" key on the keyboard
+          if (elt.value.length == 4) {
+            // Focus on the next sibling
+            document.querySelector("#c").focus()
+          }
+        });
+      })
+  
+      const form2 = document.querySelector("#easyForm #easyFormSubmit");
+      var howPay2 = document.getElementsByName('howPay');
+      var resol2 = document.getElementsByName('resol');
+      var quan2 = document.getElementsByName('quan');
+      var howPayVar = 0;
+      var resolVar =0;
+      var quanVar = 0;
+      var form2Price = 0;
+      var selectedPrice = 0;
+  
+          
+  
+      // 수량 체크
+      var quanRadio = document.getElementsByName("quan");
+      labels = document.querySelector(".easy-container form  ul li:nth-child(2)").getElementsByTagName('label');
+      var quanTarget = "";
+  
+      for (i=0;i < quanRadio.length; i++){
+        quanRadio[i].addEventListener('click', quanClicked);
+      }
+      function quanClicked(){
+        for (i=0;i < quanRadio.length; i++){
+          if (quanRadio[i].checked === true){
+            labels[i].style.backgroundColor = checkedColor;
+            labels[i].style.color = uncheckedColor;
+            quanTarget = labels[i];
+            console.log(quanRadio[i])
+          }
+          else{
+            labels[i].style.backgroundColor = uncheckedColor;
+            labels[i].style.color = blackColor;
+          }
+        }
+      }
+  
+      var subjectObject = {
+        "강원도": {
+          "강릉시": null,
+          "고성군": null,
+          "양양군": null,
+          "춘천시": null,
+          "철원군": null,
+          "횡성군": null,
+          "영월군": null,
+          "원주시": null,
+          "인제군": null,
+          "정선군": null,
+          "태백시": null,
+          "삼척시": null,
+          "기타": null
+        },
+        "경기도": {
+          "가평군": null,
+          "고양시": null,
+          "과천시": null,
+          "광명시": null,
+          "광주시": null,
+          "구리시": null,
+          "군포시": null,
+          "김포시": null,
+          "남양주시": null,
+          "동두천시": null,
+          "부천시": null,
+          "성남시": null,
+          "수원시": null,
+          "시흥시": null,
+          "안산시": null,
+          "안성시": null,
+          "안양시": null,
+          "양주시": null,
+          "양평군": null,
+          "여주시": null,
+          "연천군": null,
+          "오산시": null,
+          "용인시": null,
+          "의왕시": null,
+          "의정부시": null,
+          "이천시": null,
+          "파주시": null,
+          "평택시": null,
+          "포천시": null,
+          "하남시": null,
+          "화성시": null,
+          "기타": null
+        },
+        "경상남도": {
+          "거제시": null,
+          "고성군": null,
+          "김해시": null,
+          "남해군": null,
+          "밀양시": null,
+          "사천시": null,
+          "산청군": null,
+          "양산시": null,
+          "창원시": null,
+          "창녕군": null,
+          "통영시": null,
+          "하동군": null,
+          "함안군": null,
+          "함양군": null,
+          "합천군": null,
+          "기타": null
+        },
+        "경상북도": {
+          "경산시": null,
+          "경주시": null,
+          "구미시": null,
+          "김천시": null,
+          "군위군": null,
+          "문경시": null,
+          "영천시": null,
+          "상주시": null,
+          "안동시": null,
+          "영주시": null,
+          "울진군": null,
+          "예천군": null,
+          "의성군": null,
+          "칠곡군": null,
+          "포항시": null,
+          "기타": null
+        },
+        "광주광역시": {
+          "광산구": null,
+          "동구": null,
+          "북구": null,
+          "서구": null,
+          "남구": null,
+          "기타": null
+        },
+        "대구광역시": {
+          "달서구": null,
+          "달성군": null,
+          "동구": null,
+          "북구": null,
+          "서구": null,
+          "수성구": null,
+          "중구": null,
+          "기타": null
+        },
+        "대전광역시": {
+          "대덕구": null,
+          "동구": null,
+          "서구": null,
+          "유성구": null,
+          "중구": null,
+          "기타": null
+        },
+        "부산광역시": {
+          "강서구": null,
+          "금정구": null,
+          "기장군": null,
+          "남구": null,
+          "동구": null,
+          "동래구": null,
+          "부산진구": null,
+          "북구": null,
+          "사상구": null,
+          "사하구": null,
+          "서구": null,
+          "수영구": null,
+          "연제구": null,
+          "영도구": null,
+          "중구": null,
+          "해운대구": null,
+          "기타": null
+        },
+        "서울특별시": {
+          "강남구": null,
+          "강동구": null,
+          "강서구": null,
+          "관악구": null,
+          "광진구": null,
+          "구로구": null,
+          "금천구": null,
+          "노원구": null,
+          "도봉구": null,
+          "동대문구": null,
+          "동작구": null,
+          "마포구": null,
+          "서대문구": null,
+          "서초구": null,
+          "성동구": null,
+          "성북구": null,
+          "송파구": null,
+          "양천구": null,
+          "영등포구": null,
+          "용산구": null,
+          "은평구": null,
+          "종로구": null,
+          "중구": null,
+          "중랑구": null,
+          "기타": null
+        },
+        "세종특별자치시": {
+          "대덕구": null,
+          "금남구": null,
+          "중앙구": null,
+          "기타": null
+        },
+        "울산광역시": {
+          "남구": null,
+          "북구": null,
+          "동구": null,
+          "중구": null,
+          "울주군": null,
+          "기타": null
+        },
+        "인천광역시": {
+          "계양구": null,
+          "남구": null,
+          "부평구": null,
+          "동구": null,
+          "미추홀구": null,
+          "연수구": null,
+          "서구": null,
+          "중구": null,
+          "기타": null
+        },
+        "전라남도": {
+          "강진군": null,
+          "고흥군": null,
+          "곡성군": null,
+          "광양시": null,
+          "구례군": null,
+          "나주시": null,
+          "담양군": null,
+          "목포시": null,
+          "무안군": null,
+          "보성군": null,
+          "순천시": null,
+          "신안군": null,
+          "영광군": null,
+          "영암군": null,
+          "장성군": null,
+          "장흥군": null,
+          "여수시": null,
+          "함평군": null,
+          "해남군": null,
+          "화순군": null,
+          "기타": null
+        },
+        "전라북도": {
+          "고창군": null,
+          "군산시": null,
+          "김제시": null,
+          "남원시": null,
+          "무주군": null,
+          "부안군": null,
+          "순창군": null,
+          "익산시": null,
+          "장수군": null,
+          "전주시": null,
+          "정읍시": null,
+          "진안군": null,
+          "기타": null
+        },
+        "제주특별자치도": {
+          "제주시": null,
+          "서귀포시": null,
+          "기타": null
+        },
+        "충청남도": {
+          "계룡시": null,
+          "공주시": null,
+          "금산군": null,
+          "논산시": null,
+          "당진시": null,
+          "보령시": null,
+          "부여군": null,
+          "서산시": null,
+          "아산시": null,
+          "천안시": null,
+          "청양군": null,
+          "태안군": null,
+          "예산군": null,
+          "홍성군": null,
+          "기타": null
+        },
+        "충청북도": {
+          "단양군": null,
+          "보은군": null,
+          "영동군": null,
+          "옥천군": null,
+          "청주시": null,
+          "충주시": null,
+          "중원군": null,
+          "괴산군": null,
+          "음성군": null,
+          "진천군": null,
+          "기타": null
+        }
+      }
+      window.onload = function() {
+        var subjectSel = document.getElementById("subject");
+        var topicSel = document.getElementById("topic");
+        for (var x in subjectObject) {
+          subjectSel.options[subjectSel.options.length] = new Option(x, x);
+        }
+        subjectSel.onchange = function() {
+          //empty Topics dropdown
+          topicSel.length = 1;
+          //display correct values
+          for (var y in subjectObject[this.value]) {
+            topicSel.options[topicSel.options.length] = new Option(y, y);
+          }
+          // console.log("Selected Subject:", this.value);
+        }
+        
+  
+        topicSel.onchange = function() {
+          // Log selected topic
+          // console.log("Selected Topic:", this.value);
+        }
+      }
+  
+  
+      
+        // 라디오 중에 하나 체크하면 색 바뀌게 (현장의 종류)
+        var typeRadio = document.querySelectorAll(".easy-container form  ul li:nth-child(4) div div input");
+        var rStore = document.querySelector("#store");
+        var rHouse = document.querySelector("#house");
+        var rFactory = document.querySelector("#factory");
+        var rElse = document.querySelector("#else");
+        var rAcademy = document.querySelector("#academy");
+        var rOffice = document.querySelector("#office");
+        var rChurch = document.querySelector("#church");
+        var rApt = document.querySelector("#apt");
+        for (i=0;i < typeRadio.length; i++){
+          typeRadio[i].addEventListener('click', typeRadioActivated);
+        }
+
+        function typeRadioActivated(){
+          if (rStore.checked){
+            rStore.nextElementSibling.style.backgroundColor = checkedColor;
+            rStore.nextElementSibling.style.color = uncheckedColor;
+            rHouse.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rHouse.nextElementSibling.style.color = blackColor;
+            rFactory.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rFactory.nextElementSibling.style.color = blackColor;
+            rElse.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rElse.nextElementSibling.style.color = blackColor;
+            rAcademy.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rAcademy.nextElementSibling.style.color = blackColor;
+            rOffice.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rOffice.nextElementSibling.style.color = blackColor;
+            rChurch.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rChurch.nextElementSibling.style.color = blackColor;
+            rApt.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rApt.nextElementSibling.style.color = blackColor;
+
+          }
+          else if (rHouse.checked){
+            rHouse.nextElementSibling.style.backgroundColor = checkedColor;
+            rHouse.nextElementSibling.style.color = uncheckedColor;
+            rStore.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rStore.nextElementSibling.style.color = blackColor;
+            rFactory.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rFactory.nextElementSibling.style.color = blackColor;
+            rElse.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rElse.nextElementSibling.style.color = blackColor;
+            rAcademy.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rAcademy.nextElementSibling.style.color = blackColor;
+            rOffice.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rOffice.nextElementSibling.style.color = blackColor;
+            rChurch.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rChurch.nextElementSibling.style.color = blackColor;
+            rApt.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rApt.nextElementSibling.style.color = blackColor;
+          }
+          else if (rFactory.checked){
+            rFactory.nextElementSibling.style.backgroundColor = checkedColor;
+            rFactory.nextElementSibling.style.color = uncheckedColor;
+            rStore.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rStore.nextElementSibling.style.color = blackColor;
+            rHouse.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rHouse.nextElementSibling.style.color = blackColor;
+            rElse.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rElse.nextElementSibling.style.color = blackColor;
+            rAcademy.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rAcademy.nextElementSibling.style.color = blackColor;
+            rOffice.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rOffice.nextElementSibling.style.color = blackColor;
+            rChurch.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rChurch.nextElementSibling.style.color = blackColor;
+            rApt.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rApt.nextElementSibling.style.color = blackColor;
+          }
+          else if (rElse.checked){
+            rElse.nextElementSibling.style.backgroundColor = checkedColor;
+            rElse.nextElementSibling.style.color = uncheckedColor;
+            rStore.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rStore.nextElementSibling.style.color = blackColor;
+            rHouse.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rHouse.nextElementSibling.style.color = blackColor;
+            rFactory.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rFactory.nextElementSibling.style.color = blackColor;
+            rAcademy.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rAcademy.nextElementSibling.style.color = blackColor;
+            rOffice.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rOffice.nextElementSibling.style.color = blackColor;
+            rChurch.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rChurch.nextElementSibling.style.color = blackColor;
+            rApt.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rApt.nextElementSibling.style.color = blackColor;
+          }
+          else if (rAcademy.checked){
+            rHouse.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rHouse.nextElementSibling.style.color = blackColor;
+            rStore.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rStore.nextElementSibling.style.color = blackColor;
+            rFactory.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rFactory.nextElementSibling.style.color = blackColor;
+            rElse.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rElse.nextElementSibling.style.color = blackColor;
+            rAcademy.nextElementSibling.style.backgroundColor = checkedColor;
+            rAcademy.nextElementSibling.style.color = uncheckedColor;
+            rOffice.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rOffice.nextElementSibling.style.color = blackColor;
+            rChurch.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rChurch.nextElementSibling.style.color = blackColor;
+            rApt.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rApt.nextElementSibling.style.color = blackColor;
+          }
+          else if (rOffice.checked){
+            rFactory.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rFactory.nextElementSibling.style.color = blackColor;
+            rStore.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rStore.nextElementSibling.style.color = blackColor;
+            rHouse.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rHouse.nextElementSibling.style.color = blackColor;
+            rElse.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rElse.nextElementSibling.style.color = blackColor;
+            rAcademy.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rAcademy.nextElementSibling.style.color = blackColor;
+            rOffice.nextElementSibling.style.backgroundColor = checkedColor;
+            rOffice.nextElementSibling.style.color = uncheckedColor;
+            rChurch.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rChurch.nextElementSibling.style.color = blackColor;
+            rApt.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rApt.nextElementSibling.style.color = blackColor;
+          }
+          else if (rChurch.checked){
+            rElse.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rElse.nextElementSibling.style.color = blackColor;
+            rStore.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rStore.nextElementSibling.style.color = blackColor;
+            rHouse.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rHouse.nextElementSibling.style.color = blackColor;
+            rFactory.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rFactory.nextElementSibling.style.color = blackColor;
+            rAcademy.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rAcademy.nextElementSibling.style.color = blackColor;
+            rOffice.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rOffice.nextElementSibling.style.color = blackColor;
+            rChurch.nextElementSibling.style.backgroundColor = checkedColor;
+            rChurch.nextElementSibling.style.color = uncheckedColor;
+            rApt.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rApt.nextElementSibling.style.color = blackColor;
+          }
+          else if (rApt.checked){
+            rElse.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rElse.nextElementSibling.style.color = blackColor;
+            rStore.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rStore.nextElementSibling.style.color = blackColor;
+            rHouse.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rHouse.nextElementSibling.style.color = blackColor;
+            rFactory.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rFactory.nextElementSibling.style.color = blackColor;
+            rAcademy.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rAcademy.nextElementSibling.style.color = blackColor;
+            rOffice.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rOffice.nextElementSibling.style.color = blackColor;
+            rChurch.nextElementSibling.style.backgroundColor = uncheckedColor;
+            rChurch.nextElementSibling.style.color = blackColor;
+            rApt.nextElementSibling.style.backgroundColor = checkedColor;
+            rApt.nextElementSibling.style.color = uncheckedColor;
+          }
+        }
+  
+      // 라디오 중에 하나 체크하면 색 바뀌게 (인터넷)
+      var internet = document.querySelectorAll(".easy-container form  ul li:nth-child(5) div div input");
+      var intYes = document.querySelector("#intYes");
+      var intNo = document.querySelector("#intNo");
+      var intWill = document.querySelector("#intWill");
+      var intWillNot = document.querySelector("#intWillNot");
+      for (i=0;i < internet.length; i++){
+        internet[i].addEventListener('click', internetActivated);
+      }
+  
+      function internetActivated(){
+        if (intYes.checked){
+          intYes.nextElementSibling.style.backgroundColor = checkedColor;
+          intYes.nextElementSibling.style.color = uncheckedColor;
+          intNo.nextElementSibling.style.backgroundColor = uncheckedColor;
+          intNo.nextElementSibling.style.color = blackColor;
+          intWill.nextElementSibling.style.backgroundColor = uncheckedColor;
+          intWill.nextElementSibling.style.color = blackColor;
+          intWillNot.nextElementSibling.style.backgroundColor = uncheckedColor;
+          intWillNot.nextElementSibling.style.color = blackColor;
+  
+        }
+        else if (intNo.checked){
+          intNo.nextElementSibling.style.backgroundColor = checkedColor;
+          intNo.nextElementSibling.style.color = uncheckedColor;
+          intYes.nextElementSibling.style.backgroundColor = uncheckedColor;
+          intYes.nextElementSibling.style.color = blackColor;
+          intWill.nextElementSibling.style.backgroundColor = uncheckedColor;
+          intWill.nextElementSibling.style.color = blackColor;
+          intWillNot.nextElementSibling.style.backgroundColor = uncheckedColor;
+          intWillNot.nextElementSibling.style.color = blackColor;
+        }
+        else if (intWill.checked){
+          intWill.nextElementSibling.style.backgroundColor = checkedColor;
+          intWill.nextElementSibling.style.color = uncheckedColor;
+          intYes.nextElementSibling.style.backgroundColor = uncheckedColor;
+          intYes.nextElementSibling.style.color = blackColor;
+          intNo.nextElementSibling.style.backgroundColor = uncheckedColor;
+          intNo.nextElementSibling.style.color = blackColor;
+          intWillNot.nextElementSibling.style.backgroundColor = uncheckedColor;
+          intWillNot.nextElementSibling.style.color = blackColor;
+        }
+        else if (intWillNot.checked){
+          intWillNot.nextElementSibling.style.backgroundColor = checkedColor;
+          intWillNot.nextElementSibling.style.color = uncheckedColor;
+          intYes.nextElementSibling.style.backgroundColor = uncheckedColor;
+          intYes.nextElementSibling.style.color = blackColor;
+          intNo.nextElementSibling.style.backgroundColor = uncheckedColor;
+          intNo.nextElementSibling.style.color = blackColor;
+          intWill.nextElementSibling.style.backgroundColor = uncheckedColor;
+          intWill.nextElementSibling.style.color = blackColor;
+        }
+      }
+  
+      // hover 노가다ㅏㅏ
+  
+      function addHoverEvent(elementId) {
+        var element = document.querySelector(elementId);
+        element.addEventListener('mouseover', function() {
+          if (element.previousElementSibling.checked){
+            element.style.backgroundColor = checkedColor;
+          }
+          else{
+            element.style.backgroundColor = hoverColor;  
+          }
+          
+        });
+        element.addEventListener('mouseout', function() {
+          if (element.previousElementSibling.checked) {
+            element.style.backgroundColor = checkedColor;
+          } else {
+            element.style.backgroundColor = uncheckedColor;
+          }
+        });
+      }
+  
+      addHoverEvent("#hoverFunc1"); //인터넷
+      addHoverEvent("#hoverFunc2"); //인터넷
+      addHoverEvent("#hoverFunc3"); //인터넷
+      addHoverEvent("#hoverFunc4"); //인터넷
+      addHoverEvent("#hoverFunc5"); //댓수
+      addHoverEvent("#hoverFunc6"); //댓수
+      addHoverEvent("#hoverFunc7"); //댓수
+      addHoverEvent("#hoverFunc8"); //댓수
+      addHoverEvent("#hoverFunc9"); //댓수
+      addHoverEvent("#hoverFunc10"); //댓수
+      addHoverEvent("#hoverFunc11"); //타입
+      addHoverEvent("#hoverFunc12"); //타입
+      addHoverEvent("#hoverFunc13"); //타입
+      addHoverEvent("#hoverFunc14"); //타입
+      addHoverEvent("#hoverFunc15"); //댓수
+      addHoverEvent("#hoverFunc16"); //댓수
+      addHoverEvent("#hoverFunc17"); //댓수
+      addHoverEvent("#hoverFunc18"); //댓수
+      addHoverEvent("#hoverFunc19"); //댓수
+      addHoverEvent("#hoverFunc20"); //댓수
+      addHoverEvent("#hoverFunc21"); //댓수
+      addHoverEvent("#hoverFunc22"); //댓수
+      addHoverEvent("#hoverFunc23"); //댓수
+      addHoverEvent("#hoverFunc24"); //댓수
+      addHoverEvent("#hoverFunc25"); //타입
+      addHoverEvent("#hoverFunc26"); //타입
+      addHoverEvent("#hoverFunc27"); //타입
+      addHoverEvent("#hoverFunc28"); //타입
+      
+      function submitHoverEvent(elementId) {
+        var element = document.querySelector(elementId);
+        element.addEventListener('mouseover', function() {
+          if (element.previousElementSibling.checked){
+            element.style.backgroundColor = easySubmit;
+          }
+          else{
+            element.style.backgroundColor = hoverSubmit;  
+          }
+          
+        });
+        element.addEventListener('mouseout', function() {
+          if (element.previousElementSibling.checked) {
+            element.style.backgroundColor = easySubmit;
+          } else {
+            element.style.backgroundColor = easySubmit;
+          }
+        });
+      }
+  
+      submitHoverEvent("#easySubmit");
+    </script>
+    <script>
+      $(function(){
+        $('#footer').load('footer.html')
+      })
+      $(function(){
+        $('#header').load('header.html')
+      })
+      $(function(){
+          $('#sidefixed').load('sidefixed.html')
+        })
+    </script>
+
+    <script>
+      // google-form
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbw4Q3vH1p_Cw6IlMYPfx_fwvDFKCAjCDu-QFmll5tmlFGPBVxM0/exec'
+        const form = document.forms['google-sheet1']
+
+        form.addEventListener('submit', e => {
+          e.preventDefault()
+          fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            // .then(response => alert("신청 되었습니다. 곧 연락 드리겠습니다."))
+            // .catch(error => console.error('Error!', error.message))
+            if(confirm("신청 되었습니다. 곧 연락 드리겠습니다.")) document.location = 'success.html';
+        })
+
+      const form2 = document.forms['google-sheet2']
+
+      form2.addEventListener('submit', e => {
+        e.preventDefault()
+        fetch(scriptURL, { method: 'POST', body: new FormData(form2)})
+          // .then(response => alert("신청 되었습니다. 곧 연락 드리겠습니다."))
+          // .catch(error => console.error('Error!', error.message))
+          if(confirm("신청 되었습니다. 곧 연락 드리겠습니다.")) document.location = 'success.html';
+      })
+
+      const body = document.querySelector("body");
+      const navbar = document.querySelector(".navbar");
+      const menuBtn = document.querySelector(".menu-btn");
+      const cancelBtn = document.querySelector(".cancel-btn");
+      menuBtn.onclick = ()=>{
+        navbar.classList.add("show");
+        // menuBtn.classList.add("hide");
+        // body.classList.add("disabled");
+      }
+      cancelBtn.onclick = ()=>{
+        // body.classList.remove("disabled");
+        navbar.classList.remove("show");
+        // menuBtn.classList.remove("hide");
+      }
+      
+
+        function slidefun(n) {
+          
+          let i;
+          for(i = 0;i<myslide.length;i++){
+            myslide[i].style.display = "none";
+          }
+          for(i = 0;i<dot.length;i++) {
+            dot[i].className = dot[i].className.replace(' active', '');
+          }
+          if(n > myslide.length){
+            counter = 1;
+            }
+          if(n < 1){
+            counter = myslide.length;
+            }
+          myslide[counter - 1].style.display = "block";
+          dot[counter - 1].className += " active";
+        }
+    </script>
+</html>

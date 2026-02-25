@@ -1,0 +1,399 @@
+:root{
+    --easyForm-btn: #f6f6f6;
+    --easyForm-btn-border: 1px solid #b4b3b3;
+    --easyForm-btn-shadow: 0 0px 5px 0 rgba(0, 0, 0, .2);
+    --easyForm-btn-submit: #b12401;
+    --easyForm-btn-submit-hover: rgb(163, 37, 37);
+    --btn-border-radius: 0px;
+    --checkmark-hover: #dad8d8;
+    --checkmark-checked: rgb(160, 40, 40);
+  }
+#ktMark{
+    visibility: hidden;
+    display: none;
+}
+.easy-container{
+    /* max-height: 0; */
+    transition: max-height 0.7s ease-out;
+    overflow: hidden;
+    scroll-margin-top: 300px;
+    /* background-color: #F6F6F6; */
+    padding: 30px;
+}
+.easy-container form {
+    margin: 0 auto;
+    border: 2px solid rgb(195, 195, 195);
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 10px 30px 0 rgba(0, 0, 0, .2);
+    border-radius: 10px;
+    max-width: 1220px;
+    display: grid;
+    /* grid-template-columns: 3fr 2fr; */
+    /* column-gap: 10px;
+    row-gap: 10px; */
+}
+@media (max-width: 1150px) {
+    .easy-container form  ul{
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr;
+        }
+  }
+
+  @media (max-width: 800px) {
+    .easy-container form  ul:nth-child(2){
+        display: none;
+        visibility: hidden;
+    }
+  }
+.easy-container form  ul{
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    }
+    @media (min-width: 1100px) {
+        .easy-container form  ul:nth-child(2){
+            display: none;
+            visibility: hidden;
+        }
+        .easy-container form  ul{
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 6fr 10fr 1fr;
+            }
+      }
+.easy-container form  ul li{
+    list-style: none;
+    margin: 0;
+}
+@media (max-width: 1400px) {
+    .easy-container form  ul li{
+        list-style: none;
+        margin: 20px 10px;
+    }
+    .easy-container{
+        padding: 15px;
+    }
+}
+.easy-container form  ul li:not(:nth-child(1)) input{
+    display: none;
+    visibility: hidden;
+}
+.easy-container form  ul li .title{
+    font-size: 14px;
+    padding-bottom: 20px;
+    /* padding-top: 20px; */
+    font-weight: 600;
+}
+.easy-container form  ul li label{
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.easy-container form  ul li .phoneNum {
+    /* border-bottom: 2px solid rgb(187, 137, 137); */
+    width: fit-content;
+}
+.easy-container form  ul li p {
+    display: inline-block;
+    font-size: 17px;
+    margin: 0;
+}
+.easy-container form  ul:nth-child(1) li:nth-child(1),
+.easy-container form  ul:nth-child(1) li:nth-child(2),
+.easy-container form  ul:nth-child(1) li:nth-child(3),
+.easy-container form  ul:nth-child(1) li:nth-child(4),
+.easy-container form  ul:nth-child(1) li:nth-child(5),
+.easy-container form  ul:nth-child(1) li:nth-child(4){
+    border: 3px solid rgba(219, 38, 38, 0);
+    width: fit-content;
+    padding: 10px;
+    background-color: #b12401;
+}
+.easy-container form  ul:nth-child(1) li:nth-child(1){
+    background-color: #b4b3b3;
+    width: 100%;
+}
+.easy-container form  ul:nth-child(1) li:nth-child(4),
+.easy-container form  ul:nth-child(1) li:nth-child(3){
+    background-color: #b4b3b3;
+    width: 100%;
+}
+.easy-container form  ul li:nth-child(1) input{
+    font-size: 14px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border: none;
+}
+.easy-container form  ul li:nth-child(1) input:nth-child(1){
+    width: 50px;
+    border: var(--easyForm-btn-border);
+    box-shadow: var(--easyForm-btn-shadow);
+}
+.easy-container form  ul li:nth-child(1) input:nth-child(3),
+.easy-container form  ul li:nth-child(1) input:nth-child(5){
+    width: 55px;
+    border: var(--easyForm-btn-border);
+    box-shadow: var(--easyForm-btn-shadow);
+}
+/* submit button */
+/* .easy-container form  ul li:nth-child(9){
+    background-color: #b10101;
+    width: fit-content;
+    margin: 0 auto 30px auto;
+} */
+.easy-container form  ul li:nth-child(6){
+    padding: 20px;
+}
+.easy-container form  ul li:nth-child(6) #submit-btn label { 
+    /* height: 30px; */
+    background-color: var(--easyForm-btn-submit);
+    padding: 10px 20px;
+    display: inline-block;
+    /* right: 50%; */
+    /* transform: translateX(50%); */
+    position: absolute;
+    text-align: center;
+    text-align: center;
+    color: #fff;
+    margin: 0 auto;
+}
+.easy-container form  ul li:nth-child(6) #submit-btn label:hover{ 
+    /* height: 30px; */
+    background-color: var(--easyForm-btn-submit-hover);
+}
+
+
+
+/* 카메라 댓수 */
+.easy-container form  ul li:nth-child(2){
+    /* max-width: 100px; */
+    border: 2px solid #17860d00;
+    width: 30px;
+    background-color: #b12401;
+}
+.easy-container form  ul li:nth-child(2) div div label{
+    background-color: var(--easyForm-btn);
+    /* padding: 20px 10px; */
+    display: inline-block;
+    width: 55px;
+    height: 40px;
+    padding: 10px;
+    text-align: center;
+    font-size: 12px;
+    border: var(--easyForm-btn-border);
+    border-radius: 2px;
+    box-shadow: var(--easyForm-btn-shadow);
+}
+.easy-container form  ul li:nth-child(2) div div #hoverFunc9{
+    min-width: 52px;
+}
+.easy-container form  ul li:nth-child(2) div div #hoverFunc10{
+    min-width: 54px;
+}
+.easy-container form  ul li:nth-child(2) #quanDiv{
+    display: grid;
+    /* justify-content: space-around; */
+    /* flex-wrap: wrap; */
+    grid-template-columns: repeat(8, 1fr);;
+    column-gap: 5px;
+    row-gap: 10px;
+}
+@media (max-width: 1350px) {
+    .easy-container form  ul li:nth-child(2) #quanDiv { 
+        grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 1150px) {
+    .easy-container form  ul li:nth-child(2) #quanDiv { 
+        grid-template-columns: repeat(4, 1fr); }
+  }
+/* 설치 지역 */
+.easy-container form  ul li:nth-child(3)  select{
+    height: 30px;
+    font-size: 12px;
+    padding: 0 10px 0 20px;
+    /* width: 210px; */
+    background-color: var(--easyForm-btn-border);
+    box-shadow: var(--easyForm-btn-shadow);
+    border: var(--easyForm-btn-border);
+    box-shadow: var(--easyForm-btn-shadow);
+}
+.easy-container form  ul li:nth-child(3) div input{
+    height: 30px;
+    font-size: 12px;
+    padding: 0 15px;
+    width: 210px;
+    border: var(--easyForm-btn-border);
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    display: block;
+    visibility: visible;
+}
+/* 설치 하실 곳 */
+.easy-container form  ul li:nth-child(4) div:nth-child(2) div{
+    display: inline-block;
+    margin-right: 10px;
+}
+.easy-container form  ul li:nth-child(4) label{
+    background-color: var(--easyForm-btn);
+    padding: 10px;
+    text-align: center;
+    font-size: 12px;
+    height: 40px;
+    width: 60px;
+    display: inline-block;
+    border: var(--easyForm-btn-border);
+    border-radius: var(--btn-border-radius);
+    box-shadow: var(--easyForm-btn-shadow);
+}
+
+/* 인터넷 */
+.easy-container form  ul li:nth-child(5){
+    background-color: #bcd03c;
+    /* width: 100px; */
+}
+.easy-container form  ul li:nth-child(5) label{
+    background-color: var(--easyForm-btn);
+    padding: 10px 20px;
+    display: inline-block;
+    font-size: 12px;
+    width: fit-content;
+    border: var(--easyForm-btn-border);
+    border-radius: var(--btn-border-radius);
+    margin-right: 20px;
+    box-shadow: var(--easyForm-btn-shadow);
+}
+.easy-container form  ul li:nth-child(5) div:nth-child(2) div{
+    display: inline-block;
+}
+.easy-container form  ul li:nth-child(5) div:nth-child(2) div:nth-child(1) div:nth-child(1),
+.easy-container form  ul li:nth-child(5) div:nth-child(2) div:nth-child(1) div:nth-child(2){
+    /* background-color: #002442; */
+    margin-bottom: 10px;
+}
+.easy-container form  ul li:nth-child(5) div:nth-child(2) div:nth-child(2) div:nth-child(2){
+    /* min-width: 300px; */
+}
+@media (max-width: 1400px) {
+    .easy-container form  ul li:nth-child(5) div:nth-child(2) div:nth-child(1) div:nth-child(1),
+    .easy-container form  ul li:nth-child(5) div:nth-child(2) div:nth-child(1) div:nth-child(2){
+    margin-bottom: 0;
+}
+}
+
+
+/* 개인정보 동의 */
+.easy-container form  ul li:nth-child(6){
+    width: fit-content;
+    margin: 0 auto;
+    /* padding: 20px 20px 10px 20px; */
+    border: 2px solid #75b8ee00;
+}
+.easy-container form  ul li:nth-child(6) label{
+    margin: 0;
+}
+.easy-container form  ul li:nth-child(6) p{
+    text-align: left;
+    padding: 10px 25px;
+    margin: 0 auto;
+    /* background-color: #002442; */
+    font-size: 13px;
+    text-decoration: underline;
+    transform: translateY(-15px );
+    width: 100%;
+    cursor: pointer; 
+}
+.easy-container form  ul li:nth-child(6) div{
+    margin: 5px 50px;
+}
+#agreeExpand{
+    max-height: 0;
+    overflow: hidden;
+}
+#agreeExpand p{
+    font-size: 10px;
+    line-height: 20px;
+    border: 3px solid rgb(195, 195, 195);
+    padding: 20px;
+    
+}
+/* 오른쪽 포스터 */
+/* .easy-container form  ul:nth-child(2) li{
+    margin: 0;
+}
+.easy-container form  ul:nth-child(2) li img{
+    width: 100%;
+
+} */
+/* Create a custom checkbox */
+.checkCont {
+    display: block;
+    position: relative;
+    padding-left: 62px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 22px;
+    height: 20px;
+    line-height: 30px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+  /* Hide the browser's default checkbox */
+.checkCont input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: end;
+    transform: translateX(-150px);
+    /* text-align: center; */
+    box-sizing: border-box;
+    height: 30px;
+    width: 30px;
+    background-color: #fff;
+    border: var(--easyForm-btn-border);
+}
+
+/* On mouse-over, add a grey background color */
+.checkCont:hover input ~ .checkmark {
+    background-color: var(--checkmark-hover);
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkCont input:checked ~ .checkmark {
+    background-color: var(--checkmark-checked);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.checkCont input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkCont .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}

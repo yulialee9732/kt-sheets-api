@@ -1,0 +1,331 @@
+#samples {
+    margin-bottom: 100px;
+}
+.samples-cont{
+    width: 70%;
+}
+.samples-inner{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 470px;
+}
+.samples-block:nth-child(1){
+    background-color: #fff;
+    box-shadow: 0 10px 30px 0 rgba(0, 0, 0, .2);
+    width: fit-content;
+    border-radius: 10px;
+}
+.samples-block:nth-child(2){
+    background-color: #fff;
+    box-shadow: 0 10px 30px 0 rgba(0, 0, 0, .2);
+    width: fit-content;
+    border-radius: 10px;
+}
+@media screen and (min-width:900px){
+    .samples-block:nth-child(1){
+        box-sizing: border-box;
+    }
+    .samples-block:nth-child(2){
+        box-sizing: border-box;
+    }
+    .samples-block .block-info{
+        padding: 10px;
+        box-sizing: border-box;
+     }
+     .detail-open .camDiv{
+         width: 200px;
+     }
+     .detail-open .cam{
+        width: 100%;
+        transition: ease-in-out .3s;
+     }
+
+    .detail-open .play {
+        width: 100%;
+        background-color: rgba(215, 215, 215, 0.205);
+        position: absolute;
+        top: 0;
+        height: 100%;
+    }
+    .detail-open .play img{
+        width: 50%;
+        position: absolute;
+        top: 20%;
+        left: 25%;
+        display: flex;
+        opacity: 100%;
+    }
+    .detail-open {
+        position: relative;
+        margin: 0  auto 0px auto;
+        width: 100%;
+     }
+     #samples-selected .selected{
+        padding:2rem;
+        margin:6rem;
+     }
+     #samples-selected div button{
+        padding: 20px 40px;
+        margin: 20px 10px 10px 10px;
+     }
+     
+}
+@media screen and (max-width: 900px){
+    #samples {
+        margin-bottom: 100px;
+    }
+    .samples-cont{
+        width: 80%;
+        margin: 0 auto;
+    }
+    .samples-inner{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0 auto;
+        width: 100%;
+    }
+    .samples-block:nth-child(1),
+    .samples-block:nth-child(2){
+        border: 1px solid #acacac;
+        box-shadow: #797979 1px 2px 5px 2px;
+        border-radius: 10px;
+        width: 100%;
+        display: block;
+        padding: 10px 0;
+        margin: 25px auto;
+    }
+    .samples-block .block-info{
+        margin: 0 auto;
+        padding: 0 auto;
+        box-sizing: border-box;
+     }
+    .detail-open .camDiv{
+        width: fit-content;
+        width: 50%;
+        margin: 0 auto;
+        padding: 0;
+    }
+    .detail-open .cam{
+        width: 100%;
+        margin: 0 auto;
+        transition: ease-in-out .3s;
+        padding: 0 auto;
+    }
+    .detail-open .play img{
+        width: 20%;
+        position: absolute;
+        top: 35%;
+        left: 42%;
+        opacity: 100%;
+    }
+    .detail-open .play {
+        width: 100%;
+        background-color: rgba(29, 29, 29, 0.062);
+        position: absolute;
+        top: 0;
+        height: 100%;
+    }
+    .detail-open {
+        position: relative;
+        margin: 0  auto 0px auto;
+        width: 90%;
+    }
+    #samples-selected .selected{
+        padding:20px 10px;
+        margin: 2rem;
+        
+    } 
+    #samples-selected div button{
+        padding: 10px 20px;
+        margin: 10px 10px 0px 10px;
+        font-size: 20px;
+     }
+}
+.samples-box{
+    position: relative;
+}
+.smaples-box .play{
+    width: 30%;
+   position: absolute;
+   opacity: 100%;
+}
+/* 210만화소 샘플 (밖 버튼 폰트) */
+.block-info h2{
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 10px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.samples-block:hover{
+    box-shadow: 0 0px 20px 0 rgba(0, 0, 0, 0.363);
+    outline-offset: 0;
+    transition: ease-in-out 200ms;
+    cursor: pointer;
+ }
+.samples-block h2{
+    margin: 0;
+}
+
+
+#samples-selected {
+    position: fixed;
+   top:0; left:0;
+   min-height: 100vh;
+   width: 100%;
+   background: rgba(0,0,0,.8);
+   z-index: 500;
+   display: none;
+   align-items: center;
+   justify-content: center;
+   
+}
+
+#samples-selected .selected{
+    display: none;   
+   text-align: center;
+   background: #fff;
+   position: relative;
+   width: 0rem;
+   box-sizing: border-box;
+   border-radius: 5px;
+   animation: my-animation 500ms ease-in-out ;
+}
+/* 210만화소 샘플 영상(안에 폰트) */
+#samples-selected .selected h2{
+   line-height: 40px;
+   font-size: 18px;
+   font-weight: 500;
+   padding-bottom: 10px;
+}
+.sl-bg{
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+}
+@keyframes my-animation {        
+   from {
+     opacity : 0;
+     top : -50px;
+   }
+   to {
+     opacity : 1;
+     top : 0;
+   }      
+ }
+#samples-selected .selected.active{
+    display: inline-block;
+ }
+ #samples-selected .selected .fa-times{
+    position: absolute;
+   top:1rem; right:1.5rem;
+   cursor: pointer;
+   color:#444;
+   font-size: 2rem;
+ }
+ #samples-selected .selected video{
+    width: 100%;
+    height: 100%;
+    margin-top: 0px;
+ }
+ /* 매장, 카페 낮, 카페 밤 버튼 */
+ #samples-selected div button{
+    font-size: 13px;
+    border: 2px solid #2196F3;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px 0 rgba(0, 0, 0, .2);
+ }
+ #day210button-2,
+ #day500button-3{
+   background-color: #2196F3;
+   color: #fff;
+ }
+ #night210button,
+ #night210button-2,
+ #night500button-3,
+ #day210button{
+   background-color: #ffffff;
+   color: #444;
+   
+ }
+ 
+ @media (max-width:991px){
+
+    html{
+       font-size: 80%;
+    }
+ 
+ }
+
+body{
+    margin: 0;
+    
+}
+
+
+
+
+.hidden{
+    display: none;
+}
+
+#estimate-selected {
+    position: fixed;
+   top:0; left:0;
+   min-height: 100vh;
+   width: 100%;
+   background: rgba(0,0,0,.8);
+   display: none;
+   align-items: center;
+   justify-content: center;
+}
+
+.sl-bg{
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+}
+@keyframes my-animation {        
+   from {
+     opacity : 0;
+     top : -50px;
+   }
+   to {
+     opacity : 1;
+     top : 0;
+   }      
+ }
+ #day210button-2,
+ #day500button-3{
+   background-color: #2196F3;
+   color: #fff;
+ }
+ #night210button,
+ #night210button-2,
+ #night500button-3,
+ #day210button{
+   background-color: #ffffff;
+   color: #444;
+ }
+ @media (max-width:991px){
+
+    html{
+       font-size: 80%;
+    }
+ 
+ }
+ 
+ 
+ @media (max-width:1000px){
+    #estimate .estimate-inner{
+      grid-template-columns: repeat(auto-fit, minmax(28rem, 2fr));
+  }
+ }
