@@ -43,7 +43,7 @@ async function appendToSheet(rowData) {
   try {
     await sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
-      range: 'Sheet1!A:Z', // 시트 이름에 맞게 조정
+      range: '시트1!A:Z', // 한글 시트 이름 사용
       valueInputOption: 'USER_ENTERED',
       resource: {
         values: [rowData]
@@ -52,7 +52,8 @@ async function appendToSheet(rowData) {
     console.log('Google Sheets에 데이터 저장 완료');
     return true;
   } catch (error) {
-    console.error('Google Sheets 저장 실패:', error);
+    console.error('Google Sheets 저장 실패:', error.message);
+    console.error('상세 에러:', JSON.stringify(error.errors || error.response?.data || error, null, 2));
     return false;
   }
 }
