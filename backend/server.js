@@ -43,7 +43,7 @@ async function appendToSheet(rowData) {
   try {
     await sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
-      range: '댓수문자 발동!A:Z', // 실제 시트 탭 이름
+      range: '댓수문자 발송!A:Z', // 실제 시트 탭 이름
       valueInputOption: 'USER_ENTERED',
       resource: {
         values: [rowData]
