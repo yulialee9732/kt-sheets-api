@@ -188,6 +188,94 @@ app.get('/health', (req, res) => {
   res.json({ status: 'healthy', timestamp: new Date().toISOString() });
 });
 
+// 진단 엔드포인트 - Google Sheets 연결 상태 확인
+app.get('/api/diagnose', async (req, res) => {
+  const diagnosis = {
+    timestamp: new Date().toISOString(),
+    server: 'running',
+    email: {
+      configured: !!(process.env.EMAIL_USER && process.env.EMAIL_PASS),
+      user: process.env.EMAIL_USER ? process.env.EMAIL_USER.replace(/(.{3}).*(@.*)/, '$1***$2') : 'NOT SET'
+    },
+    googleSheets: {
+      spreadsheetId: process.env.GOOGLE_SPREADSHEET_ID ? 'SET (hidden)' : 'NOT SET',
+      serviceAccountEmail: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || 'NOT SET',
+      privateKey: process.env.GOOGLE_PRIVATE_KEY ? 'SET (hidden)' : 'NOT SET',
+      connectionTest: null,
+      error: null
+    }
+  };
+
+  // Google Sheets 연결 테스트
+  if (process.env.GOOGLE_SPREADSHEET_ID && process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL && process.env.GOOGLE_PRIVATE_KEY) {
+    try {
+      const testAuth = new google.auth.GoogleAuth({
+        credentials: {
+          client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+          private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n')
+        },
+        scopes: ['https://www.googleapis.com/auth/spreadsheets']
+      });
+      
+      const testSheets = google.sheets({ version: 'v4', auth: testAuth });
+      
+      // 스프레드시트 정보 가져오기 시도
+      const spreadsheetInfo = await testSheets.spreadsheets.get({
+        spreadsheetId: process.env.GOOGLE_SPREADSHEET_ID
+      });
+      
+      diagnosis.googleSheets.connectionTest = 'SUCCESS';
+      diagnosis.googleSheets.spreadsheetTitle = spreadsheetInfo.data.properties.title;
+      diagnosis.googleSheets.sheets = spreadsheetInfo.data.sheets.map(s => s.properties.title);
+      
+    } catch (error) {
+      diagnosis.googleSheets.connectionTest = 'FAILED';
+      diagnosis.googleSheets.error = {
+        message: error.message,
+        code: error.code,
+        details: error.errors || error.response?.data?.error || null
+      };
+    }
+  } else {
+    diagnosis.googleSheets.connectionTest = 'SKIPPED - Missing credentials';
+  }
+
+  res.json(diagnosis);
+});
+
+// Google Sheets 테스트 쓰기
+app.post('/api/test-sheet', async (req, res) => {
+  if (!process.env.GOOGLE_SPREADSHEET_ID) {
+    return res.status(400).json({ success: false, error: 'GOOGLE_SPREADSHEET_ID not set' });
+  }
+
+  try {
+    const timestamp = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
+    const testRow = [timestamp, '테스트', '010', '0000', '0000', '', '테스트', '테스트', '테스트', '테스트', '테스트', '테스트'];
+    
+    const result = await sheets.spreadsheets.values.append({
+      spreadsheetId: SPREADSHEET_ID,
+      range: '댓수문자 발송!A:Z',
+      valueInputOption: 'USER_ENTERED',
+      resource: {
+        values: [testRow]
+      }
+    });
+
+    res.json({ 
+      success: true, 
+      message: 'Test row written successfully',
+      updatedRange: result.data.updates?.updatedRange
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      error: error.message,
+      details: error.errors || error.response?.data?.error || null
+    });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`서버가 포트 ${PORT}에서 실행중입니다.`);
 });
