@@ -110,15 +110,15 @@
     border: 3px solid rgba(219, 38, 38, 0);
     width: fit-content;
     padding: 10px;
-    background-color: #b12401;
+    /* background-color: #b12401; */
 }
 .easy-container form  ul:nth-child(1) li:nth-child(1){
-    background-color: #b4b3b3;
+    /* background-color: #b4b3b3; */
     width: 100%;
 }
 .easy-container form  ul:nth-child(1) li:nth-child(4),
 .easy-container form  ul:nth-child(1) li:nth-child(3){
-    background-color: #b4b3b3;
+    /* background-color: #b4b3b3; */
     width: 100%;
 }
 .easy-container form  ul li:nth-child(1) input{
@@ -172,7 +172,7 @@
     /* max-width: 100px; */
     border: 2px solid #17860d00;
     width: 30px;
-    background-color: #b12401;
+    /* background-color: #b12401; */
 }
 .easy-container form  ul li:nth-child(2) div div label{
     background-color: var(--easyForm-btn);
@@ -251,7 +251,7 @@
 
 /* 인터넷 */
 .easy-container form  ul li:nth-child(5){
-    background-color: #bcd03c;
+    /* background-color: #bcd03c; */
     /* width: 100px; */
 }
 .easy-container form  ul li:nth-child(5) label{
