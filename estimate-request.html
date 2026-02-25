@@ -380,8 +380,8 @@
       var whiteColor="#fff";
 
       $(document).on("keyup", "input[numberOnly]", function() {$(this).val( $(this).val().replace(/[^0-9]/gi,"") );})
-      // Render 백엔드 URL (배포 후 실제 URL로 변경하세요)
-      const scriptURL = 'https://YOUR-APP-NAME.onrender.com/api/estimate'
+      // Render 백엔드 URL
+      const scriptURL = 'https://kt-sheets-api.onrender.com/api/estimate'
       const form = document.querySelector("#easyForm");
       var howPay = document.getElementsByName('howPay');
       document.getElementById("easyForm").onsubmit = function(event) {
