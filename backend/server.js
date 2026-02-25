@@ -115,7 +115,7 @@ app.post('/api/estimate', upload.none(), async (req, res) => {
       "'010",              // C: 번호 (앞에 ' 붙여서 텍스트로 저장)
       "'" + phoneB,        // D: 앞4 (텍스트로 저장)
       "'" + phoneC,        // E: 뒤4 (텍스트로 저장)
-      '',                  // F: TRUE (빈칸)
+      false,               // F: 체크박스 (unchecked)
       quan,                // G: 댓수
       rType,               // H: 타입
       rInt,                // I: 인터넷
