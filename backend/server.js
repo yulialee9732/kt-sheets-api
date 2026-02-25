@@ -115,7 +115,7 @@ app.post('/api/estimate', upload.none(), async (req, res) => {
       '010',               // C: 번호
       phoneB,              // D: 앞4
       phoneC,              // E: 뒤4
-      '',                  // F: TRUE (빈칸)
+      'FALSE',             // F: TRUE → FALSE
       quan,                // G: 댓수
       rType,               // H: 타입
       rInt,                // I: 인터넷
