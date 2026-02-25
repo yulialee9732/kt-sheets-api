@@ -110,16 +110,18 @@ app.post('/api/estimate', upload.none(), async (req, res) => {
 
     // Google Sheets에 저장
     const sheetRow = [
-      timestamp,           // A: 시간 (Korea time)
+      timestamp,           // A: . (시간)
       ktMark,              // B: 경로
       '010',               // C: 번호
       phoneB,              // D: 앞4
       phoneC,              // E: 뒤4
-      rType,               // F: 타입
-      rInt,                // G: 인터넷
-      topic,               // H: 시
-      address,             // I: 동
-      subject              // J: 도
+      'TRUE',              // F: TRUE
+      quan,                // G: 댓수
+      rType,               // H: 타입
+      rInt,                // I: 인터넷
+      topic,               // J: 시
+      address,             // K: 동
+      subject              // L: 도
     ];
     
     if (SPREADSHEET_ID) {
