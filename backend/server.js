@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 const { google } = require('googleapis');
 require('dotenv').config();
 
@@ -14,14 +14,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// 이메일 전송 설정 - zzoomcctv@gmail.com에서 발송
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER, // zzoomcctv@gmail.com
-    pass: process.env.EMAIL_PASS  // Gmail 앱 비밀번호
-  }
-});
+// Resend 이메일 설정
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 // Google Sheets API 설정
 const SPREADSHEET_ID = process.env.GOOGLE_SPREADSHEET_ID;
@@ -288,8 +282,8 @@ app.post('/api/estimate', upload.none(), async (req, res) => {
       });
     }
 
-    // 이메일 발송 - 2hh9732@gmail.com, yulialee217@gmail.com로 전송
-    if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+    // 이메일 발송 (Resend) - 2hh9732@gmail.com, yulialee217@gmail.com로 전송
+    if (resend) {
       try {
         const emailSubject = `[KT 신규] ${subject} ${topic} ${address} ${rType} 카메라 ${quan} 견적 인터넷: ${rInt}`;
         
@@ -307,15 +301,15 @@ app.post('/api/estimate', upload.none(), async (req, res) => {
 
 인입경로: ${ktMark}`;
 
-        await transporter.sendMail({
-          from: process.env.EMAIL_USER, // zzoomcctv@gmail.com
-          to: '2hh9732@gmail.com, yulialee217@gmail.com',
+        await resend.emails.send({
+          from: 'KT 견적알림 <onboarding@resend.dev>',
+          to: ['2hh9732@gmail.com', 'yulialee217@gmail.com'],
           subject: emailSubject,
           text: emailBody
         });
-        console.log('이메일 알림 전송 완료');
+        console.log('✅ 이메일 알림 전송 완료 (Resend)');
       } catch (emailError) {
-        console.error('이메일 전송 실패:', emailError);
+        console.error('이메일 전송 실패:', emailError.message);
       }
     }
 
@@ -357,8 +351,9 @@ app.get('/api/diagnose', async (req, res) => {
     timestamp: new Date().toISOString(),
     server: 'running',
     email: {
-      configured: !!(process.env.EMAIL_USER && process.env.EMAIL_PASS),
-      user: process.env.EMAIL_USER ? process.env.EMAIL_USER.replace(/(.{3}).*(@.*)/, '$1***$2') : 'NOT SET'
+      provider: 'Resend',
+      configured: !!resend,
+      apiKey: process.env.RESEND_API_KEY ? 'SET (hidden)' : 'NOT SET'
     },
     googleSheets: {
       spreadsheetId: SPREADSHEET_ID ? 'SET (hidden)' : 'NOT SET',
