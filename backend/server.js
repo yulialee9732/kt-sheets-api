@@ -192,73 +192,8 @@ const addSALTConsultation = async (data) => {
   return await insertRowAtTop('SALT 상담신청', rowData);
 };
 
-// KT 상담신청 시트에 데이터 추가 (레거시)
-// 컬럼: IP주소, 시간, 화소, 연락처, 주소, 타입, 실내, 실외, IoT, 특수공사, 인터넷, 희망날짜, 희망시간, 메모
-const addKTConsultation = async (data) => {
-  const rowData = [
-    data.ip || '',                    // A: IP 주소
-    formatTime(),                     // B: 시간
-    data.resolution || '',            // C: 화소
-    data.phone || '',                 // D: 연락처
-    data.address || '',               // E: 주소
-    data.locationType || '',          // F: 타입
-    data.indoorCount || '',           // G: 실내
-    data.outdoorCount || '',          // H: 실외
-    data.iot || '',                   // I: IoT
-    data.specialInstall || '',        // J: 특수공사
-    data.hasInternet || '',           // K: 인터넷
-    data.preferredDate || '',         // L: 희망날짜
-    data.preferredTime || '',         // M: 희망 시간
-    data.notes || ''                  // N: 메모
-  ];
-  
-  return await insertRowAtTop('KT 상담신청', rowData);
-};
-
-// 간편견적 시트에 데이터 추가
-// 컬럼: IP주소, 시간, 화소, 실내, 실외, IoT, 특수공사, 전환, 연락처, 주소, 타입, 인터넷, 희망날짜, 희망시간, 메모
-const addQuickEstimate = async (data) => {
-  const rowData = [
-    data.ip || '',                    // A: IP 주소
-    formatTime(),                     // B: 시간
-    data.resolution || '',            // C: 화소
-    data.indoorCount || '',           // D: 실내
-    data.outdoorCount || '',          // E: 실외
-    data.iot || '',                   // F: IoT
-    data.specialInstall || '',        // G: 특수공사
-    'X',                              // H: 전환(O/X) - 기본값 X
-    data.phone || '',                 // I: 연락처
-    data.address || '',               // J: 주소
-    data.locationType || '',          // K: 타입
-    data.hasInternet || '',           // L: 인터넷
-    data.preferredDate || '',         // M: 희망날짜
-    data.preferredTime || '',         // N: 희망 시간
-    data.notes || ''                  // O: 메모
-  ];
-  
-  return await insertRowAtTop('간편견적', rowData);
-};
-
 // 폼 데이터 저장용 배열 (백업용)
 let formSubmissions = [];
-
-// 레거시 Google Sheets에 데이터 추가 (댓수문자 발송 시트용)
-async function appendToLegacySheet(rowData) {
-  try {
-    if (!sheets || !SPREADSHEET_ID) return false;
-    await sheets.spreadsheets.values.append({
-      spreadsheetId: SPREADSHEET_ID,
-      range: '댓수문자 발송!A:Z',
-      valueInputOption: 'USER_ENTERED',
-      resource: { values: [rowData] }
-    });
-    console.log('✅ 댓수문자 발송 시트에 데이터 저장 완료');
-    return true;
-  } catch (error) {
-    console.error('댓수문자 발송 저장 실패:', error.message);
-    return false;
-  }
-}
 
 // IP 주소 추출 헬퍼
 const getClientIP = (req) => {
@@ -351,23 +286,6 @@ app.post('/api/estimate', upload.none(), async (req, res) => {
         notes: notes,
         formType: '상담 신청형'           // 폼 타입
       });
-      
-      // 레거시 시트에도 저장 (기존 호환성 유지)
-      const legacyRow = [
-        timestamp,           // A: 시간
-        ktMark || 'KT',      // B: 경로
-        '010',               // C: 번호
-        phoneB,              // D: 앞4
-        phoneC,              // E: 뒤4
-        '',                  // F: TRUE (빈칸)
-        quan,                // G: 댓수
-        rType,               // H: 타입
-        rInt,                // I: 인터넷
-        topic,               // J: 시
-        address,             // K: 동
-        subject              // L: 도
-      ];
-      await appendToLegacySheet(legacyRow);
     }
 
     // 이메일 발송 - 2hh9732@gmail.com, yulialee217@gmail.com로 전송
@@ -419,54 +337,6 @@ app.post('/api/estimate', upload.none(), async (req, res) => {
 // 접수 목록 조회 (관리자용)
 app.get('/api/submissions', (req, res) => {
   res.json(formSubmissions);
-});
-
-// 간편견적 폼 처리 엔드포인트
-app.post('/api/quick-estimate', upload.none(), async (req, res) => {
-  try {
-    const formData = req.body;
-    const clientIP = getClientIP(req);
-    
-    // 간편견적 데이터
-    const data = {
-      ip: clientIP,
-      resolution: formData.resolution || formData.hwazo || '',
-      indoorCount: formData.indoor || formData.silnae || '',
-      outdoorCount: formData.outdoor || formData.siloe || '',
-      iot: Array.isArray(formData.iot) ? formData.iot.join(', ') : (formData.iot || ''),
-      specialInstall: Array.isArray(formData.special) ? formData.special.join(', ') : (formData.special || ''),
-      phone: formData.phone || '',
-      address: formData.address || '',
-      locationType: formData.type || formData.place || '',
-      hasInternet: formData.internet || formData.intExist || '',
-      preferredDate: formData.date || formData.preferredDate || '',
-      preferredTime: formData.time || formData.preferredTime || '',
-      notes: formData.notes || formData.memo || ''
-    };
-    
-    console.log('=== 새 간편견적 ===');
-    console.log('시간:', formatTime());
-    console.log('IP:', clientIP);
-    console.log('화소:', data.resolution);
-    console.log('실내:', data.indoorCount, '/ 실외:', data.outdoorCount);
-    console.log('==================');
-
-    if (SPREADSHEET_ID) {
-      await addQuickEstimate(data);
-    }
-
-    res.status(200).json({ 
-      success: true, 
-      message: '간편견적이 접수되었습니다.'
-    });
-    
-  } catch (error) {
-    console.error('간편견적 처리 오류:', error);
-    res.status(500).json({ 
-      success: false, 
-      message: '서버 오류가 발생했습니다.' 
-    });
-  }
 });
 
 // 헬스체크 엔드포인트
@@ -535,45 +405,17 @@ app.get('/api/diagnose', async (req, res) => {
   res.json(diagnosis);
 });
 
-// Google Sheets 테스트 쓰기 - 레거시 (댓수문자 발송)
+// Google Sheets 테스트 쓰기 - SALT 상담신청
 app.post('/api/test-sheet', async (req, res) => {
   if (!SPREADSHEET_ID || !sheets) {
     return res.status(400).json({ success: false, error: 'Google Sheets not configured' });
   }
 
   try {
-    const testRow = [formatTime(), '테스트', '010', '0000', '0000', '', '테스트', '테스트', '테스트', '테스트', '테스트', '테스트'];
-    
-    const result = await sheets.spreadsheets.values.append({
-      spreadsheetId: SPREADSHEET_ID,
-      range: '댓수문자 발송!A:Z',
-      valueInputOption: 'USER_ENTERED',
-      resource: { values: [testRow] }
-    });
-
-    res.json({ 
-      success: true, 
-      message: 'Test row written to 댓수문자 발송',
-      updatedRange: result.data.updates?.updatedRange
-    });
-  } catch (error) {
-    res.status(500).json({ 
-      success: false, 
-      error: error.message,
-      details: error.errors || error.response?.data?.error || null
-    });
-  }
-});
-
-// Google Sheets 테스트 쓰기 - KT 상담신청
-app.post('/api/test-kt-sheet', async (req, res) => {
-  if (!SPREADSHEET_ID || !sheets) {
-    return res.status(400).json({ success: false, error: 'Google Sheets not configured' });
-  }
-
-  try {
     const clientIP = getClientIP(req);
-    const result = await addKTConsultation({
+    const result = await addSALTConsultation({
+      status: '대기중',
+      source: 'KT',
       ip: clientIP,
       resolution: '테스트',
       phone: '010-0000-0000',
@@ -581,17 +423,18 @@ app.post('/api/test-kt-sheet', async (req, res) => {
       locationType: '테스트',
       indoorCount: '1',
       outdoorCount: '1',
-      iot: '테스트',
+      iot: '',
       specialInstall: '',
       hasInternet: 'Y',
       preferredDate: '',
       preferredTime: '',
-      notes: '테스트 데이터'
+      notes: '테스트 데이터',
+      formType: '테스트'
     });
 
     res.json({ 
       success: result, 
-      message: result ? 'Test row written to KT 상담신청' : 'Failed to write test row'
+      message: result ? 'Test row written to SALT 상담신청' : 'Failed to write test row'
     });
   } catch (error) {
     res.status(500).json({ 
