@@ -173,20 +173,20 @@ const addSALTConsultation = async (data) => {
     data.status || '대기중',          // A: 현황
     formatTime(),                     // B: 시간
     data.source || 'KT',              // C: 경로
-    data.phone || '',                 // D: 연락처
-    data.locationType || '',          // E: 타입
-    data.address || '',               // F: 주소
-    data.preferredDate || '',         // G: 희망날짜
-    data.preferredTime || '',         // H: 희망시간
-    data.resolution || '',            // I: 화소
-    data.outdoorCount || '',          // J: 실외
-    data.indoorCount || '',           // K: 실내
-    data.iot || '',                   // L: IoT
-    data.specialInstall || '',        // M: 특수공사
-    data.hasInternet || '',           // N: 인터넷
-    data.notes || '',                 // O: 메모
-    data.formType || '',              // P: 인입 폼
-    data.ip || ''                     // Q: IP
+    data.phone || '-',                // D: 연락처
+    data.locationType || '-',         // E: 타입
+    data.address || '-',              // F: 주소
+    data.preferredDate || '-',        // G: 희망날짜
+    data.preferredTime || '-',        // H: 희망시간
+    data.resolution || '-',           // I: 화소
+    data.outdoorCount || '-',         // J: 실외
+    data.indoorCount || '-',          // K: 실내
+    data.iot || '-',                  // L: IoT
+    data.specialInstall || '-',       // M: 특수공사
+    data.hasInternet || '-',          // N: 인터넷
+    data.notes || '-',                // O: 메모
+    '-',                              // P: 인입 폼 (항상 -)
+    data.ip || '-'                    // Q: IP
   ];
   
   return await insertRowAtTop('SALT 상담신청', rowData);
