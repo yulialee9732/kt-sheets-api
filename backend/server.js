@@ -24,46 +24,257 @@ const transporter = nodemailer.createTransport({
 });
 
 // Google Sheets API 설정
-const auth = new google.auth.GoogleAuth({
-  credentials: {
-    client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n')
-  },
-  scopes: ['https://www.googleapis.com/auth/spreadsheets']
-});
+const SPREADSHEET_ID = process.env.GOOGLE_SPREADSHEET_ID;
 
-const sheets = google.sheets({ version: 'v4', auth });
-const SPREADSHEET_ID = process.env.GOOGLE_SPREADSHEET_ID; // 2025 견적문의 시트 ID
+// 인증 설정 - GOOGLE_CREDENTIALS JSON 또는 개별 환경변수 지원
+let auth;
+let sheets;
+
+const getGoogleCredentials = () => {
+  // 방법 1: GOOGLE_CREDENTIALS JSON 문자열 (권장)
+  if (process.env.GOOGLE_CREDENTIALS) {
+    try {
+      return JSON.parse(process.env.GOOGLE_CREDENTIALS);
+    } catch (e) {
+      console.error('GOOGLE_CREDENTIALS JSON 파싱 실패:', e.message);
+    }
+  }
+  
+  // 방법 2: 개별 환경변수 (레거시)
+  if (process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL && process.env.GOOGLE_PRIVATE_KEY) {
+    return {
+      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n')
+    };
+  }
+  
+  return null;
+};
+
+const initializeSheets = () => {
+  const credentials = getGoogleCredentials();
+  
+  if (!credentials || !SPREADSHEET_ID) {
+    console.warn('⚠️ Google Sheets 설정이 완료되지 않았습니다.');
+    return false;
+  }
+  
+  auth = new google.auth.GoogleAuth({
+    credentials,
+    scopes: ['https://www.googleapis.com/auth/spreadsheets']
+  });
+  
+  sheets = google.sheets({ version: 'v4', auth });
+  console.log('✅ Google Sheets API 초기화 완료');
+  return true;
+};
+
+// 서버 시작 시 초기화
+initializeSheets();
+
+// 시간 포맷팅 (한국 시간대, DD.MM.YYYY HH:mm)
+const formatTime = (date = new Date()) => {
+  const d = new Date(date);
+  const options = { timeZone: 'Asia/Seoul' };
+  const day = d.toLocaleString('en-US', { ...options, day: '2-digit' });
+  const month = d.toLocaleString('en-US', { ...options, month: '2-digit' });
+  const year = d.toLocaleString('en-US', { ...options, year: 'numeric' });
+  const hour = d.toLocaleString('en-US', { ...options, hour: '2-digit', hour12: false });
+  const minute = d.toLocaleString('en-US', { ...options, minute: '2-digit' });
+  return `${day}.${month}.${year} ${hour}:${minute}`;
+};
+
+// 시트 ID 가져오기
+const getSheetId = async (sheetName) => {
+  try {
+    const spreadsheet = await sheets.spreadsheets.get({
+      spreadsheetId: SPREADSHEET_ID,
+    });
+    const targetSheet = spreadsheet.data.sheets.find(
+      s => s.properties.title === sheetName
+    );
+    return targetSheet ? targetSheet.properties.sheetId : 0;
+  } catch (error) {
+    console.error('시트 ID 조회 실패:', error.message);
+    return 0;
+  }
+};
+
+// 맨 위에 행 삽입 (헤더 다음, 2행에 삽입)
+const insertRowAtTop = async (sheetName, rowData) => {
+  if (!sheets || !SPREADSHEET_ID) {
+    console.error('Google Sheets가 초기화되지 않았습니다.');
+    return false;
+  }
+  
+  try {
+    const sheetId = await getSheetId(sheetName);
+    
+    // 2행에 빈 행 삽입
+    await sheets.spreadsheets.batchUpdate({
+      spreadsheetId: SPREADSHEET_ID,
+      resource: {
+        requests: [{
+          insertDimension: {
+            range: {
+              sheetId: sheetId,
+              dimension: 'ROWS',
+              startIndex: 1,  // 헤더(1행) 다음
+              endIndex: 2
+            },
+            inheritFromBefore: false
+          }
+        }]
+      }
+    });
+    
+    // 2행에 데이터 쓰기
+    await sheets.spreadsheets.values.update({
+      spreadsheetId: SPREADSHEET_ID,
+      range: `${sheetName}!A2`,
+      valueInputOption: 'USER_ENTERED',
+      resource: { values: [rowData] },
+    });
+    
+    console.log(`✅ ${sheetName} 시트에 데이터 저장 완료 (맨 위)`);
+    return true;
+  } catch (error) {
+    console.error(`${sheetName} 저장 실패:`, error.message);
+    return false;
+  }
+};
+
+// 맨 아래에 행 추가 (기존 방식)
+const appendRow = async (sheetName, rowData) => {
+  if (!sheets || !SPREADSHEET_ID) {
+    console.error('Google Sheets가 초기화되지 않았습니다.');
+    return false;
+  }
+  
+  try {
+    await sheets.spreadsheets.values.append({
+      spreadsheetId: SPREADSHEET_ID,
+      range: `${sheetName}!A:Z`,
+      valueInputOption: 'USER_ENTERED',
+      resource: { values: [rowData] }
+    });
+    console.log(`✅ ${sheetName} 시트에 데이터 저장 완료 (맨 아래)`);
+    return true;
+  } catch (error) {
+    console.error(`${sheetName} 저장 실패:`, error.message);
+    return false;
+  }
+};
+
+// SALT 상담신청 시트에 데이터 추가
+// 컬럼: 현황, 시간, 경로, 연락처, 타입, 주소, 희망날짜, 희망시간, 화소, 실외, 실내, IoT, 특수공사, 인터넷, 메모, 인입폼, IP
+const addSALTConsultation = async (data) => {
+  const rowData = [
+    data.status || '대기중',          // A: 현황
+    formatTime(),                     // B: 시간
+    data.source || 'KT',              // C: 경로
+    data.phone || '',                 // D: 연락처
+    data.locationType || '',          // E: 타입
+    data.address || '',               // F: 주소
+    data.preferredDate || '',         // G: 희망날짜
+    data.preferredTime || '',         // H: 희망시간
+    data.resolution || '',            // I: 화소
+    data.outdoorCount || '',          // J: 실외
+    data.indoorCount || '',           // K: 실내
+    data.iot || '',                   // L: IoT
+    data.specialInstall || '',        // M: 특수공사
+    data.hasInternet || '',           // N: 인터넷
+    data.notes || '',                 // O: 메모
+    data.formType || '',              // P: 인입 폼
+    data.ip || ''                     // Q: IP
+  ];
+  
+  return await insertRowAtTop('SALT 상담신청', rowData);
+};
+
+// KT 상담신청 시트에 데이터 추가 (레거시)
+// 컬럼: IP주소, 시간, 화소, 연락처, 주소, 타입, 실내, 실외, IoT, 특수공사, 인터넷, 희망날짜, 희망시간, 메모
+const addKTConsultation = async (data) => {
+  const rowData = [
+    data.ip || '',                    // A: IP 주소
+    formatTime(),                     // B: 시간
+    data.resolution || '',            // C: 화소
+    data.phone || '',                 // D: 연락처
+    data.address || '',               // E: 주소
+    data.locationType || '',          // F: 타입
+    data.indoorCount || '',           // G: 실내
+    data.outdoorCount || '',          // H: 실외
+    data.iot || '',                   // I: IoT
+    data.specialInstall || '',        // J: 특수공사
+    data.hasInternet || '',           // K: 인터넷
+    data.preferredDate || '',         // L: 희망날짜
+    data.preferredTime || '',         // M: 희망 시간
+    data.notes || ''                  // N: 메모
+  ];
+  
+  return await insertRowAtTop('KT 상담신청', rowData);
+};
+
+// 간편견적 시트에 데이터 추가
+// 컬럼: IP주소, 시간, 화소, 실내, 실외, IoT, 특수공사, 전환, 연락처, 주소, 타입, 인터넷, 희망날짜, 희망시간, 메모
+const addQuickEstimate = async (data) => {
+  const rowData = [
+    data.ip || '',                    // A: IP 주소
+    formatTime(),                     // B: 시간
+    data.resolution || '',            // C: 화소
+    data.indoorCount || '',           // D: 실내
+    data.outdoorCount || '',          // E: 실외
+    data.iot || '',                   // F: IoT
+    data.specialInstall || '',        // G: 특수공사
+    'X',                              // H: 전환(O/X) - 기본값 X
+    data.phone || '',                 // I: 연락처
+    data.address || '',               // J: 주소
+    data.locationType || '',          // K: 타입
+    data.hasInternet || '',           // L: 인터넷
+    data.preferredDate || '',         // M: 희망날짜
+    data.preferredTime || '',         // N: 희망 시간
+    data.notes || ''                  // O: 메모
+  ];
+  
+  return await insertRowAtTop('간편견적', rowData);
+};
 
 // 폼 데이터 저장용 배열 (백업용)
 let formSubmissions = [];
 
-// Google Sheets에 데이터 추가
-async function appendToSheet(rowData) {
+// 레거시 Google Sheets에 데이터 추가 (댓수문자 발송 시트용)
+async function appendToLegacySheet(rowData) {
   try {
+    if (!sheets || !SPREADSHEET_ID) return false;
     await sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
-      range: '댓수문자 발송!A:Z', // 실제 시트 탭 이름
+      range: '댓수문자 발송!A:Z',
       valueInputOption: 'USER_ENTERED',
-      resource: {
-        values: [rowData]
-      }
+      resource: { values: [rowData] }
     });
-    console.log('Google Sheets에 데이터 저장 완료');
+    console.log('✅ 댓수문자 발송 시트에 데이터 저장 완료');
     return true;
   } catch (error) {
-    console.error('Google Sheets 저장 실패:', error.message);
-    console.error('상세 에러:', JSON.stringify(error.errors || error.response?.data || error, null, 2));
+    console.error('댓수문자 발송 저장 실패:', error.message);
     return false;
   }
 }
+
+// IP 주소 추출 헬퍼
+const getClientIP = (req) => {
+  return req.headers['x-forwarded-for']?.split(',')[0]?.trim() || 
+         req.headers['x-real-ip'] || 
+         req.connection?.remoteAddress || 
+         req.socket?.remoteAddress || 
+         'unknown';
+};
 
 // 견적 신청 폼 처리 엔드포인트
 app.post('/api/estimate', upload.none(), async (req, res) => {
   try {
     const formData = req.body;
-    const now = new Date();
-    const timestamp = now.toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
+    const clientIP = getClientIP(req);
+    const timestamp = formatTime();
     
     // 폼 데이터 추출
     const subject = formData.subject || '';      // 시/도
@@ -77,6 +288,16 @@ app.post('/api/estimate', upload.none(), async (req, res) => {
     const phoneC = formData.c || '';             // 전화번호 뒷자리
     const ktMark = formData.ktMark || '';        // 인입경로
     const howPay = formData.howPay || '';        // 결제방식
+    
+    // 추가 필드 (새 폼에서 사용)
+    const resolution = formData.resolution || formData.hwazo || '';  // 화소
+    const indoorCount = formData.indoor || formData.silnae || '';    // 실내 카메라
+    const outdoorCount = formData.outdoor || formData.siloe || '';   // 실외 카메라
+    const iot = formData.iot || '';              // IoT 옵션
+    const specialInstall = formData.special || formData.teuksu || ''; // 특수공사
+    const preferredDate = formData.preferredDate || formData.date || ''; // 희망날짜
+    const preferredTime = formData.preferredTime || formData.time || ''; // 희망시간
+    const notes = formData.notes || formData.memo || '';             // 메모
 
     const fullPhone = `${phoneA}-${phoneB}-${phoneC}`;
     const fullAddress = `${subject} ${topic} ${address}`.trim();
@@ -92,6 +313,7 @@ app.post('/api/estimate', upload.none(), async (req, res) => {
       internet: rInt,
       paymentMethod: howPay,
       ktMark: ktMark,
+      ip: clientIP,
       rawData: formData
     };
     
@@ -100,6 +322,7 @@ app.post('/api/estimate', upload.none(), async (req, res) => {
     
     console.log('=== 새 견적 신청 ===');
     console.log('시간:', timestamp);
+    console.log('IP:', clientIP);
     console.log('전화번호:', fullPhone);
     console.log('수량:', quan);
     console.log('주소:', fullAddress);
@@ -108,30 +331,49 @@ app.post('/api/estimate', upload.none(), async (req, res) => {
     console.log('인입경로:', ktMark);
     console.log('==================');
 
-    // Google Sheets에 저장
-    const sheetRow = [
-      timestamp,           // A: . (시간)
-      ktMark || 'KT',      // B: 경로 (기본값: KT)
-      "'010",              // C: 번호 (앞에 ' 붙여서 텍스트로 저장)
-      "'" + phoneB,        // D: 앞4 (텍스트로 저장)
-      "'" + phoneC,        // E: 뒤4 (텍스트로 저장)
-      false,               // F: 체크박스 (unchecked)
-      quan,                // G: 댓수
-      rType,               // H: 타입
-      rInt,                // I: 인터넷
-      topic,               // J: 시
-      address,             // K: 동
-      subject              // L: 도
-    ];
-    
+    // SALT 상담신청 시트에 저장 (경로: KT)
     if (SPREADSHEET_ID) {
-      await appendToSheet(sheetRow);
+      await addSALTConsultation({
+        status: '대기중',
+        source: 'KT',                     // 경로를 KT로 지정
+        ip: clientIP,
+        resolution: resolution,
+        phone: fullPhone,
+        address: fullAddress,
+        locationType: rType,
+        indoorCount: indoorCount || quan,  // 실내 카메라 수 또는 총 수량
+        outdoorCount: outdoorCount,
+        iot: iot,
+        specialInstall: specialInstall,
+        hasInternet: rInt,
+        preferredDate: preferredDate,
+        preferredTime: preferredTime,
+        notes: notes,
+        formType: '상담 신청형'           // 폼 타입
+      });
+      
+      // 레거시 시트에도 저장 (기존 호환성 유지)
+      const legacyRow = [
+        timestamp,           // A: 시간
+        ktMark || 'KT',      // B: 경로
+        '010',               // C: 번호
+        phoneB,              // D: 앞4
+        phoneC,              // E: 뒤4
+        '',                  // F: TRUE (빈칸)
+        quan,                // G: 댓수
+        rType,               // H: 타입
+        rInt,                // I: 인터넷
+        topic,               // J: 시
+        address,             // K: 동
+        subject              // L: 도
+      ];
+      await appendToLegacySheet(legacyRow);
     }
 
     // 이메일 발송 - 2hh9732@gmail.com, yulialee217@gmail.com로 전송
     if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
       try {
-        const emailSubject = `[(new)KT 신규] ${subject} ${topic} ${address} ${rType} 카메라 ${quan} 견적 인터넷: ${rInt}`;
+        const emailSubject = `[KT 신규] ${subject} ${topic} ${address} ${rType} 카메라 ${quan} 견적 인터넷: ${rInt}`;
         
         const emailBody = `시간: ${timestamp}
 
@@ -169,7 +411,7 @@ app.post('/api/estimate', upload.none(), async (req, res) => {
     console.error('폼 처리 오류:', error);
     res.status(500).json({ 
       success: false, 
-      message: '서버 오류가 발생했습니다.' 
+      message: '서버 오류가 발생했습니다.'  
     });
   }
 });
@@ -177,6 +419,54 @@ app.post('/api/estimate', upload.none(), async (req, res) => {
 // 접수 목록 조회 (관리자용)
 app.get('/api/submissions', (req, res) => {
   res.json(formSubmissions);
+});
+
+// 간편견적 폼 처리 엔드포인트
+app.post('/api/quick-estimate', upload.none(), async (req, res) => {
+  try {
+    const formData = req.body;
+    const clientIP = getClientIP(req);
+    
+    // 간편견적 데이터
+    const data = {
+      ip: clientIP,
+      resolution: formData.resolution || formData.hwazo || '',
+      indoorCount: formData.indoor || formData.silnae || '',
+      outdoorCount: formData.outdoor || formData.siloe || '',
+      iot: Array.isArray(formData.iot) ? formData.iot.join(', ') : (formData.iot || ''),
+      specialInstall: Array.isArray(formData.special) ? formData.special.join(', ') : (formData.special || ''),
+      phone: formData.phone || '',
+      address: formData.address || '',
+      locationType: formData.type || formData.place || '',
+      hasInternet: formData.internet || formData.intExist || '',
+      preferredDate: formData.date || formData.preferredDate || '',
+      preferredTime: formData.time || formData.preferredTime || '',
+      notes: formData.notes || formData.memo || ''
+    };
+    
+    console.log('=== 새 간편견적 ===');
+    console.log('시간:', formatTime());
+    console.log('IP:', clientIP);
+    console.log('화소:', data.resolution);
+    console.log('실내:', data.indoorCount, '/ 실외:', data.outdoorCount);
+    console.log('==================');
+
+    if (SPREADSHEET_ID) {
+      await addQuickEstimate(data);
+    }
+
+    res.status(200).json({ 
+      success: true, 
+      message: '간편견적이 접수되었습니다.'
+    });
+    
+  } catch (error) {
+    console.error('간편견적 처리 오류:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: '서버 오류가 발생했습니다.' 
+    });
+  }
 });
 
 // 헬스체크 엔드포인트
@@ -190,6 +480,9 @@ app.get('/health', (req, res) => {
 
 // 진단 엔드포인트 - Google Sheets 연결 상태 확인
 app.get('/api/diagnose', async (req, res) => {
+  const credentials = getGoogleCredentials();
+  const hasCredentials = !!credentials;
+  
   const diagnosis = {
     timestamp: new Date().toISOString(),
     server: 'running',
@@ -198,22 +491,21 @@ app.get('/api/diagnose', async (req, res) => {
       user: process.env.EMAIL_USER ? process.env.EMAIL_USER.replace(/(.{3}).*(@.*)/, '$1***$2') : 'NOT SET'
     },
     googleSheets: {
-      spreadsheetId: process.env.GOOGLE_SPREADSHEET_ID ? 'SET (hidden)' : 'NOT SET',
-      serviceAccountEmail: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL || 'NOT SET',
-      privateKey: process.env.GOOGLE_PRIVATE_KEY ? 'SET (hidden)' : 'NOT SET',
+      spreadsheetId: SPREADSHEET_ID ? 'SET (hidden)' : 'NOT SET',
+      credentialsType: process.env.GOOGLE_CREDENTIALS ? 'JSON' : 
+                       (process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ? 'LEGACY' : 'NOT SET'),
+      serviceAccountEmail: credentials?.client_email || 'NOT SET',
+      privateKey: credentials?.private_key ? 'SET (hidden)' : 'NOT SET',
       connectionTest: null,
       error: null
     }
   };
 
   // Google Sheets 연결 테스트
-  if (process.env.GOOGLE_SPREADSHEET_ID && process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL && process.env.GOOGLE_PRIVATE_KEY) {
+  if (SPREADSHEET_ID && hasCredentials) {
     try {
       const testAuth = new google.auth.GoogleAuth({
-        credentials: {
-          client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-          private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n')
-        },
+        credentials,
         scopes: ['https://www.googleapis.com/auth/spreadsheets']
       });
       
@@ -221,7 +513,7 @@ app.get('/api/diagnose', async (req, res) => {
       
       // 스프레드시트 정보 가져오기 시도
       const spreadsheetInfo = await testSheets.spreadsheets.get({
-        spreadsheetId: process.env.GOOGLE_SPREADSHEET_ID
+        spreadsheetId: SPREADSHEET_ID
       });
       
       diagnosis.googleSheets.connectionTest = 'SUCCESS';
@@ -243,28 +535,25 @@ app.get('/api/diagnose', async (req, res) => {
   res.json(diagnosis);
 });
 
-// Google Sheets 테스트 쓰기
+// Google Sheets 테스트 쓰기 - 레거시 (댓수문자 발송)
 app.post('/api/test-sheet', async (req, res) => {
-  if (!process.env.GOOGLE_SPREADSHEET_ID) {
-    return res.status(400).json({ success: false, error: 'GOOGLE_SPREADSHEET_ID not set' });
+  if (!SPREADSHEET_ID || !sheets) {
+    return res.status(400).json({ success: false, error: 'Google Sheets not configured' });
   }
 
   try {
-    const timestamp = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
-    const testRow = [timestamp, '테스트', '010', '0000', '0000', '', '테스트', '테스트', '테스트', '테스트', '테스트', '테스트'];
+    const testRow = [formatTime(), '테스트', '010', '0000', '0000', '', '테스트', '테스트', '테스트', '테스트', '테스트', '테스트'];
     
     const result = await sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
       range: '댓수문자 발송!A:Z',
       valueInputOption: 'USER_ENTERED',
-      resource: {
-        values: [testRow]
-      }
+      resource: { values: [testRow] }
     });
 
     res.json({ 
       success: true, 
-      message: 'Test row written successfully',
+      message: 'Test row written to 댓수문자 발송',
       updatedRange: result.data.updates?.updatedRange
     });
   } catch (error) {
@@ -272,6 +561,42 @@ app.post('/api/test-sheet', async (req, res) => {
       success: false, 
       error: error.message,
       details: error.errors || error.response?.data?.error || null
+    });
+  }
+});
+
+// Google Sheets 테스트 쓰기 - KT 상담신청
+app.post('/api/test-kt-sheet', async (req, res) => {
+  if (!SPREADSHEET_ID || !sheets) {
+    return res.status(400).json({ success: false, error: 'Google Sheets not configured' });
+  }
+
+  try {
+    const clientIP = getClientIP(req);
+    const result = await addKTConsultation({
+      ip: clientIP,
+      resolution: '테스트',
+      phone: '010-0000-0000',
+      address: '테스트 주소',
+      locationType: '테스트',
+      indoorCount: '1',
+      outdoorCount: '1',
+      iot: '테스트',
+      specialInstall: '',
+      hasInternet: 'Y',
+      preferredDate: '',
+      preferredTime: '',
+      notes: '테스트 데이터'
+    });
+
+    res.json({ 
+      success: result, 
+      message: result ? 'Test row written to KT 상담신청' : 'Failed to write test row'
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      error: error.message
     });
   }
 });
