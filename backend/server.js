@@ -302,7 +302,7 @@ app.post('/api/estimate', upload.none(), async (req, res) => {
 인입경로: ${ktMark}`;
 
         await resend.emails.send({
-          from: 'KT 견적알림 <onboarding@resend.dev>',
+          from: 'KT 견적알림 <noreply@saltcctv.com>',
           to: ['2hh9732@gmail.com', 'yulialee217@gmail.com'],
           subject: emailSubject,
           text: emailBody
