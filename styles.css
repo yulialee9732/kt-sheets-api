@@ -443,9 +443,18 @@ margin-top: 100px;
   background-repeat: no-repeat;
 }
 .pc-owl-banner-inner3{
-  background: url("img/carousel-cctv.png"), linear-gradient(90deg, #1c1c1c,#9B1B26);
-  background-size: contain;
-  background-position: top;
+   background:
+    url("img/cam.png"),
+    linear-gradient(90deg, #1c1c1c, #9B1B26);
+
+  background-size:
+    calc(90% - 40px) auto, /* image */
+    100% 100%;              /* gradient */
+
+  background-position:
+    center 50px,            /* image */
+    center;                 /* gradient */
+
   background-repeat: no-repeat;
 }
 .pc-owl-banner-inner4{
@@ -632,7 +641,7 @@ margin-top: 100px;
   height: 14px;
 }
 .only-pc-block1{
-  background: url("img/main-cctv.png"),#f0f0f0;
+  background: url("img/cam.png"),#f0f0f0;
   background-size: auto 90%;
   background-repeat: no-repeat;
   background-position: right center;
@@ -650,7 +659,7 @@ margin-top: 100px;
   background-position: right 10px center;
 }
 .only-pc-block4{
-  background: url("img/only-mb4.png"),#f0f0f0;
+  background: #f0f0f0;
   background-size: auto 100%;
   background-repeat: no-repeat;
   background-position: right 10px bottom 10px;
@@ -851,8 +860,8 @@ margin-top: 100px;
   align-items: center;
 }
 .good-block img{
-  width: 100%;
-  height: 230px;
+  padding-right: 50px;
+  height: 80%;
 }
 .good-text{
   width: 100%;
