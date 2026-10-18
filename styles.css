@@ -599,12 +599,12 @@ margin-top: 100px;
 }
 .pc-main2-row .pc-main2-block1{
   height: 100%;
-  width: 39%;
+  width: 49%;
   border-radius: 5px;
 }
 .pc-main2-row .pc-main2-block2{
   height: 100%;
-  width: 29%;
+  width: 49%;
   border-radius: 5px;
 }
 .pc-main2-row a,
@@ -4867,7 +4867,6 @@ footer{
     .only-mobile-flexbox, .only-mobile-flexbox-long {
       display: flex;
       justify-content: space-between;
-      /* background: #bb0b0b; */
     }
     .only-mobile-flexbox-box{
       height: 170px;
@@ -4916,7 +4915,6 @@ footer{
       font-size: 16px;
       font-weight: 600;
       text-shadow: 1px 1px 1px #fff;
-      /* height: 37px; */
       padding-right: 10px;
       border-radius: 10px;
     }
